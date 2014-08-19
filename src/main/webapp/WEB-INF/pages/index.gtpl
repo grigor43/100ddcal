@@ -1,7 +1,5 @@
 <html>
   <head><title>Home</title></head>
-  $
-
   <body>
     <div class="jumbotron center">
       <a href="http://gaelyk.appspot.com"><img alt="Gaelyk Logo" src="/images/gaelyk.png"/></a>
