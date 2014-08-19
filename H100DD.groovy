@@ -93,6 +93,7 @@ class Humana {
                     }
                 }
                 dealWithPopup(browser)
+                println "Loading team '$team'"
                 $('#team-leaderboard .input-text') << team
                 $('#team-leaderboard button').click()
                 waitFor {
@@ -137,7 +138,8 @@ def humana = new Humana()
 def jsonMap = humana.run(
         env['HUM_USER'], env['HUM_PASS'],
         [
-                'Aerobic Task Force', 'Cheese Ballz'
+                'Aerobic Task Force', 'One Hit Runners',
+                'Sole Searchers', 'Zippity'
         ]
 )
 TimeZone.setDefault(TimeZone.getTimeZone('UTC'))
@@ -146,9 +148,9 @@ def dataMap = [
         date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
 def h = new HTTPBuilder('http://localhost:8080/')
+println new JsonBuilder(dataMap).toPrettyString()
 h.post(
         path: '/store',
         body: dataMap,
         requestContentType: groovyx.net.http.ContentType.JSON
 )
-println new JsonBuilder(dataMap).toPrettyString()
