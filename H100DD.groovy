@@ -147,7 +147,7 @@ def dataMap = [
         data: jsonMap,
         date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
-def h = new HTTPBuilder('http://localhost:8080/')
+def h = new HTTPBuilder('http://h100cal.appspot.com/')
 println new JsonBuilder(dataMap).toPrettyString()
 h.post(
         path: '/store',

@@ -62,3 +62,15 @@ dependencies {
     // compile 'org.gaelyk:gaelyk-console:2.0'
 
 }
+
+def env = System.getenv()
+appengine {
+	appcfg {
+		email = env['GAE_USER']
+		password = env['GAE_PASS']
+
+		app {
+			id = 'h100cal'
+		}
+	}
+}
