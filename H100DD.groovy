@@ -37,8 +37,7 @@ class Humana {
   List<Map> run(String username, String password, List<String> teams) {
     int idx = 0
     List retval
-    def b = new Browser()
-    b.drive {
+    Browser.drive {
       if (driver.class.canonicalName == 'HtmlUnitDriver') {
         driver.javascriptEnabled = true
       }
@@ -137,40 +136,30 @@ class Humana {
 
 def env = System.getenv()
 def humana = new Humana()
-def triesLeft = 3
-while (triesLeft > 0) {
-  List<Map> maps
-  try {
-    maps = humana.run(
-        env['HUM_USER'], env['HUM_PASS'],
-        [
-            'Aerobic Task Force', 'One Hit Runners',
-            'Sole Searchers', 'Zippity'
-        ]
-    )
-  } catch (Exception e) {
-    println e
-    triesLeft--
-    continue
-  }
+List<Map> maps
 
-  TimeZone.setDefault(TimeZone.getTimeZone('UTC'))
-  def dataMap = [
-      data: maps,
-      date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-  ]
-  def json = new JsonBuilder(dataMap).toString()
-  println json
+maps = humana.run(
+    env['HUM_USER'], env['HUM_PASS'],
+    [
+        'Aerobic Task Force', 'One Hit Runners',
+        'Sole Searchers', 'Zippity'
+    ]
+)
 
-  if (!json.contains('null')) {
-    def h = new HTTPBuilder('http://h100cal.appspot.com/')
-    h.post(
-        path: '/store',
-        body: dataMap,
-        requestContentType: groovyx.net.http.ContentType.JSON
-    )
-    break
-  } else {
-    triesLeft--
-  }
+TimeZone.setDefault(TimeZone.getTimeZone('UTC'))
+def dataMap = [
+    data: maps,
+    date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+]
+def json = new JsonBuilder(dataMap).toString()
+println json
+
+if (json.contains('null')) {
+  throw new RuntimeException("Null value found")
 }
+def h = new HTTPBuilder('http://h100cal.appspot.com/')
+h.post(
+    path: '/store',
+    body: dataMap,
+    requestContentType: groovyx.net.http.ContentType.JSON
+)
