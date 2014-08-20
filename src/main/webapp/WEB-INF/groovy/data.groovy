@@ -8,7 +8,7 @@ def offset = params.offset?.toInteger() ?: 0
 
 List<Report> reports = CacheHelper.get('data') {
   Report.findAll().sort { Report r ->
-    - r.date
+    - r.date.time
   }
 }
 
