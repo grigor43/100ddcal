@@ -1,49 +1,34 @@
 <!doctype html>
 <html>
-<head>
-    <title><sitemesh:write property='title'/> | Gaelyk</title>
+  <head>
+    <title><sitemesh:write property='title'/> | H100Cal</title>
     <link rel="shortcut icon" href="/images/gaelyk-small-favicon.png" type="image/png">
     <link rel="icon" href="/images/gaelyk-small-favicon.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/css/c3.css"/>
     <script type="text/javascript" src="/js/jquery-1.11.0.js">
     </script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <style type="text/css">
     .center {
-        text-align: center;
+      text-align: center;
     }
     </style>
     <sitemesh:write property='head'/>
-</head>
-<body>
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Gaelyk</a>
-            </div>
+  </head>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="${request.servletPath == '/WEB-INF/pages/index.gtpl' ? 'active' : ''}"><a href="/">Home</a></li>
-                    <li class="${request.servletPath == '/WEB-INF/pages/datetime.gtpl' ? 'active' : ''}"><a href="/datetime">Current Time</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+  <body>
+    <a href="https://github.com/rahulsom/100ddcal">
+      <img style="position: absolute; top: 0; right: 0; border: 0;"
+           src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67"
+           alt="Fork me on GitHub"
+           data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+    </a>
 
     <div class="container">
-        <sitemesh:write property='body'/>
+      <sitemesh:write property='body'/>
     </div>
-</body>
+  </body>
 </html>
 

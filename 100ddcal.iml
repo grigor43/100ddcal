@@ -67,6 +67,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: junit-dep-4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: spock-core-0.7-groovy-2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: objenesis-1.2" level="project" />
+    <orderEntry type="library" name="moment" level="application" />
   </component>
 </module>
 

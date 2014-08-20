@@ -17,7 +17,6 @@ function plotData(data1, names) {
   });
 }
 function processData(data) {
-  $('#lu').html(data.date);
   console.log(data.data);
   var teams = _.sortBy(data.data, function (team) {
     return parseInt(team.rank.replace(',', ''));
@@ -34,6 +33,10 @@ function processData(data) {
   console.log(names);
 
   plotData(data1, names);
+  var theMoment = moment.utc(data.date);
+
+  $('#lu').html(theMoment.fromNow());
+
 }
 function reloadData() {
   reloadDataImpl(0)
