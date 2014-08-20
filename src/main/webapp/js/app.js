@@ -31,27 +31,27 @@ function processData(data) {
   }).valueOf();
   data1.unshift('steps');
   console.log(data1);
-  //names.unshift('x');
   console.log(names);
 
   plotData(data1, names);
 }
 function reloadData() {
-  var offset = 0;
-  var done = false
-  while (!done) {
-    try {
-      $.getJSON('/api/data', {offset: offset}, function (data, status, xhr) {
-        if (status == 'success') {
-          processData(data);
-        }
-      });
-      done = true;
-    } catch (err) {
-      offset++;
+  reloadDataImpl(0)
+  setTimeout(reloadData, 1000 * 60 * 5);
+}
+
+function reloadDataImpl(offset) {
+  $.getJSON('/api/data', {offset: offset}, function (data, status, xhr) {
+    if (status == 'success') {
+      try {
+        processData(data);
+      } catch (err) {
+        reloadDataImpl(offset + 1)
+      }
+    } else {
+      console.log ("No way I'm making this work");
     }
-  }
-  setTimeout(reloadData, 1000*60*5);
+  });
 }
 $(function () {
   reloadData();
