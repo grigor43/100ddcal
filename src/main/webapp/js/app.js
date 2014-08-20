@@ -16,6 +16,9 @@ function plotData(data1, names) {
     },
     zoom: {
       enabled: false
+    },
+    tooltip: {
+      show: false
     }
 
   });
