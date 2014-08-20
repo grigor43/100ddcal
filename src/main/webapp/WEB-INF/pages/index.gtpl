@@ -15,13 +15,12 @@
 
     <script id="member" type="text/html">
     <div class="col-md-2">
-      <div style="border: 1px solid #000000; height: 144px; padding: 8px;">
+      <div style="border: 1px solid #000000; height: 153px; padding: 8px;">
         <div style="height: 63px ">
           <h4>{{name}}</h4>
         </div>
         <p>{{teamName}}</p>
         <h3>{{score}}</h3>
-
       </div>
     </div>
     </script>
