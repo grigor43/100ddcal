@@ -20,7 +20,7 @@ function processData(data) {
   $('#lu').html(data.date);
   console.log(data.data);
   var teams = _.sortBy(data.data, function (team) {
-    return team.rank;
+    return parseInt(team.rank);
   });
   console.log(teams);
   var data1 = _.map(teams, function (team) {
