@@ -6,6 +6,7 @@
     <link rel="icon" href="/images/gaelyk-small-favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/css/c3.css"/>
     <script type="text/javascript" src="/js/jquery-1.11.0.js">
     </script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
