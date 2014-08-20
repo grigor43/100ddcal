@@ -4,7 +4,8 @@ function plotData(data1, names) {
       columns: [
         data1,
       ],
-      type: 'bar'
+      type: 'bar',
+      labels: true
     },
     axis: {
       x: {
@@ -12,6 +13,9 @@ function plotData(data1, names) {
         categories: names
       },
       rotated: true
+    },
+    zoom: {
+      enabled: false
     }
 
   });

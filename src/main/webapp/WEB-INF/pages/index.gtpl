@@ -7,16 +7,20 @@
     <h3>Teams</h3>
     <div id="chart"></div>
     <h3>Individuals</h3>
-    <div id="individuals">
+    <div class="row">
+      <div id="individuals">
 
+      </div>
     </div>
 
     <script id="member" type="text/html">
     <div class="col-md-2">
-      <div style="border: 1px solid #000000; height: 144px; margin-left: -15px; padding-left: 15px">
-        <h4>{{name}}</h4>
+      <div style="border: 1px solid #000000; height: 144px; padding: 8px;">
+        <div style="height: 63px ">
+          <h4>{{name}}</h4>
+        </div>
         <p>{{teamName}}</p>
-        <h4>{{score}}</h4>
+        <h3>{{score}}</h3>
 
       </div>
     </div>
