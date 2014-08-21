@@ -154,7 +154,7 @@ def dataMap = [
 def json = new JsonBuilder(dataMap).toString()
 println json
 
-if (json.contains('null')) {
+if (json.contains('null') || json.contains('""')) {
   throw new RuntimeException("Null value found")
 }
 def h = new HTTPBuilder('http://h100cal.appspot.com/')
