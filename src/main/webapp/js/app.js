@@ -13,6 +13,9 @@ function plotData(data1, names) {
       type: 'bar',
       labels: true
     },
+    legend: {
+      show: false
+    },
     axis: {
       x: {
         type: 'category',
