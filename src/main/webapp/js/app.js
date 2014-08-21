@@ -1,3 +1,9 @@
+String.prototype.toTitleCase = function(n) {
+  var s = this;
+  if (1 !== n) s = s.toLowerCase();
+  return s.replace(/\b[a-z]/g,function(f){return f.toUpperCase()});
+}
+
 function plotData(data1, names) {
   var chart = c3.generate({
     data: {
@@ -62,6 +68,7 @@ function processData(data) {
   $('#updateTime').show();
   $('#individuals').html('')
   _.each(sortedMembers, function(member){
+    member.name =  member.name.toTitleCase();
     $('#individuals').append(ich.member(member));
   });
 
