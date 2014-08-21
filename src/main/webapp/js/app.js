@@ -2,7 +2,7 @@ String.prototype.toTitleCase = function(n) {
   var s = this;
   if (1 !== n) s = s.toLowerCase();
   return s.replace(/\b[a-z]/g,function(f){return f.toUpperCase()});
-}
+};
 
 function plotData(data1, names) {
   var chart = c3.generate({
@@ -77,7 +77,7 @@ function processData(data) {
 
 }
 function reloadData() {
-  reloadDataImpl(0)
+  reloadDataImpl(0);
   setTimeout(reloadData, 1000 * 60 * 5);
 }
 
@@ -94,6 +94,4 @@ function reloadDataImpl(offset) {
     }
   });
 }
-$(function () {
-  reloadData();
-});
+$(reloadData);

@@ -20,7 +20,7 @@
           <h4>{{name}}</h4>
         </div>
         <p>{{teamName}}</p>
-        <h3>{{score}}</h3>
+        <h3 class="pull-right">{{score}}</h3>
       </div>
     </div>
     </script>
