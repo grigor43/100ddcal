@@ -1,5 +1,15 @@
 <html>
-  <head><title>Home</title></head>
+  <head>
+    <title>Home</title>
+    <style media="screen">
+      .individual {
+        border: 1px solid #DDD;
+        height: 162px;
+        padding: 0 8px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
   <body>
     <div id="updateTime" style="display: none">
       Last Updated <span id="lu"></span>
@@ -15,17 +25,17 @@
 
     <script id="member" type="text/html">
     <div class="col-md-2">
-      <div style="border: 1px solid #000000; height: 153px; padding: 0 8px;">
+      <div style="" class="individual">
         <div style="height: 63px ">
           <h4>{{name}}</h4>
         </div>
         <p>{{teamName}}</p>
-        <h3 class="pull-right">{{score}}</h3>
+        <h2 class="pull-right">{{score}}</h2>
       </div>
     </div>
     </script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="/js/moment.js"></script>
     <script src="/js/ICanHaz.min.js"></script>
     <script src="/js/underscore.js"></script>
     <script src="/js/d3.min.js"></script>
@@ -33,4 +43,3 @@
     <script src="/js/app.js"></script>
   </body>
 </html>
-

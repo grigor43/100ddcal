@@ -3,3 +3,4 @@ build/
 .idea
 classes
 .gradletasknamecache
+data-backup/datastore-indexes-auto.xml

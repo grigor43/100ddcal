@@ -2,11 +2,11 @@
 
 
 .c3 svg {
-  font: 10px sans-serif;
+  font: 14px sans-serif;
 }
 .c3 path, .c3 line {
   fill: none;
-  stroke: #000;
+  stroke: #DDD;
 }
 .c3 text {
   -webkit-user-select: none;
