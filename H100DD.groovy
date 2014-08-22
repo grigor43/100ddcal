@@ -28,8 +28,8 @@ class Humana {
   void dealWithPopup(Browser b) {
     sleep 3000
     Browser.drive(b) {
-      if ($('fsrDeclineButton').isDisplayed()) {
-        $('fsrDeclineButton').click()
+      if ($('.fsrDeclineButton').isDisplayed()) {
+        $('.fsrDeclineButton').click()
       }
     }
   }
