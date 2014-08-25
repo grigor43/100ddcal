@@ -11,9 +11,6 @@
     </style>
   </head>
   <body>
-    <div id="updateTime" style="display: none">
-      Last Updated <span id="lu"></span>
-    </div>
     <h3>Teams</h3>
     <div id="chart"></div>
     <h3>Individuals</h3>
@@ -21,6 +18,12 @@
       <div id="individuals">
 
       </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div id="updateTime" style="display: none">
+        Last Updated <a href="" id="updatelink"><span id="lu"></span></a>
     </div>
 
     <script id="member" type="text/html">
