@@ -26,7 +26,7 @@ class Humana {
   }
 
   void dealWithPopup(Browser b) {
-    sleep 3000
+    sleep 500
     Browser.drive(b) {
       if ($('.fsrDeclineButton').isDisplayed()) {
         $('.fsrDeclineButton').click()
@@ -118,7 +118,7 @@ class Humana {
 
         def members = (1..memberCount).collect { mbr ->
           def name = $('.module-team-members li .p1-left > span')[mbr - 1].text()
-          def score = $('.module-team-members li span.x1-right')[mbr - 1].text()
+          def score = $('.module-team-members li span.steps')[mbr - 1].text()
           [name: name, score: score]
         }
         def teamret = [name: team, rank: rank, avgSteps: avgSteps, members: members]
