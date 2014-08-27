@@ -3,7 +3,7 @@
         <title>Home</title>
         <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
         <style media="screen">
         .individual {
