@@ -2,6 +2,9 @@
     <head>
         <title>Home</title>
         <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <style media="screen">
         .individual {
             border: 1px solid #DDD;
