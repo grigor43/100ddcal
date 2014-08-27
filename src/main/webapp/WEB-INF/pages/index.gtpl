@@ -5,7 +5,7 @@
       .individual {
         border: 1px solid #DDD;
         height: 162px;
-        padding: 0 8px;
+        padding: 8px 8px 0 8px;
         border-radius: 10px;
       }
     </style>
@@ -29,11 +29,12 @@
     <script id="member" type="text/html">
     <div class="col-md-2">
       <div style="" class="individual">
+<div style="height: 18px !important;overflow-y: hidden;overflow-x: visible; margin: 0 -11px; padding: 0 11px;">
+<span style="background-color: {{color}}; margin: 0 -11px; padding: 0 11px;">{{teamName}}</span>
+        </div>
+
         <div style="height: 54px;">
           <h4>{{name}}</h4>
-        </div>
-        <div style="height: 36px;">
-          <span style="background-color: {{color}}; margin: 0 -11px; padding: 0 11px;">{{teamName}}</span>
         </div>
         <h2 class="pull-right">{{score}}</h2>
       </div>
