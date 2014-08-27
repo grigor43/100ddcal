@@ -33,7 +33,7 @@
           <h4>{{name}}</h4>
         </div>
         <div style="height: 36px;">
-          <p>{{teamName}}</p>
+          <span style="background-color: {{color}}; margin: 0 -11px; padding: 0 11px;">{{teamName}}</span>
         </div>
         <h2 class="pull-right">{{score}}</h2>
       </div>

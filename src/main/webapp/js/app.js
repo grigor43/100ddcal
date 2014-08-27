@@ -72,6 +72,9 @@ function processData(data, link) {
   $('#updateTime').show();
   $('#individuals').html('');
   _.each(sortedMembers, function(member){
+    console.log(member.teamName);
+    console.log((member.teamName.hashCode() + 12 )% 12);
+    member.color = pastels[(member.teamName.hashCode() + 12 )% 12];
     member.name =  member.name.toTitleCase();
     $('#individuals').append(ich.member(member));
   });
@@ -82,6 +85,24 @@ function reloadData() {
   setTimeout(reloadData, 1000 * 60 * 5);
 }
 
+String.prototype.hashCode = function() {
+    var hash = 0, i, chr, len;
+    if (this.length == 0) return hash;
+    for (i = 0, len = this.length; i < len; i++) {
+        chr   = this.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
+
+var pastels = [
+  '#B39eb5', '#dea5a4', '#b19cd9',
+  '#779ecb', '#836953', "#03c03c",
+  '#aec6cf', '#f49ac2', '#cfcfc4',
+  '#ffb347', '#ff6961', '#fdfd96'
+
+];
 function reloadDataImpl(offset) {
   $.getJSON('/api/data', {offset: offset}, function (data, status, xhr) {
     if (status == 'success') {
