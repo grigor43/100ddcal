@@ -23,7 +23,7 @@
 
         .box {
             background: #FFF;
-            margin: 40px -20px -20px -20px;
+            margin: 40px -20px 40px -20px;
             padding: 20px;
         }
 

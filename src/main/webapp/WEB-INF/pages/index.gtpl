@@ -3,7 +3,7 @@
         <title>Home</title>
         <style media="screen">
         .individual {
-            border: 1px solid #F4F4F4;
+            border: 1px solid #DDD;
             height: 162px;
             padding: 8px 8px 0 8px;
             border-radius: 10px;
