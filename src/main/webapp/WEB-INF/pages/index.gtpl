@@ -8,6 +8,16 @@
             padding: 8px 8px 0 8px;
             border-radius: 10px;
         }
+        .individual .name {
+          height: 54px;
+        }
+        .individual .team {
+          height: 18px !important;overflow-y: hidden;overflow-x: visible; margin: 0 -11px; padding: 0 11px;
+        }
+
+        .individual .team span {
+          margin: 0 -11px; padding: 0 11px;
+        }
         </style>
     </head>
 
@@ -34,11 +44,11 @@
         <script id="member" type="text/html">
         <div class="col-md-2">
             <div style="" class="individual">
-                <div style="height: 18px !important;overflow-y: hidden;overflow-x: visible; margin: 0 -11px; padding: 0 11px;">
-                    <span style="background-color: {{color}}; margin: 0 -11px; padding: 0 11px;">{{teamName}}</span>
+                <div class="team">
+                    <span style="background-color: {{color}};">{{teamName}}</span>
                 </div>
 
-                <div style="height: 54px;">
+                <div class="name">
                     <h4>{{name}}</h4>
                 </div>
 
