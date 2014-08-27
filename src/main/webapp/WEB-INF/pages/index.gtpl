@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Home</title>
+        <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
         <style media="screen">
         .individual {
             border: 1px solid #DDD;
@@ -16,7 +17,9 @@
         }
 
         .individual .team span {
-          margin: 0 -11px; padding: 0 11px;
+          margin: -5px -11px;
+          padding: 5px 11px;
+          font-family: 'Special Elite', 'Courier New', Courier, monospace;
         }
         </style>
     </head>
