@@ -13,7 +13,7 @@
           height: 54px;
         }
         .individual .team {
-          height: 18px !important;overflow-y: hidden;overflow-x: visible; margin: 0 -11px; padding: 0 11px;
+          height: 22px !important;overflow-y: hidden;overflow-x: visible; margin: 0 -11px; padding: 0 11px;
         }
 
         .individual .team span {
