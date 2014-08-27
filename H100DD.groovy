@@ -142,7 +142,8 @@ maps = humana.run(
     env['HUM_USER'], env['HUM_PASS'],
     [
         'Aerobic Task Force', 'One Hit Runners',
-        'Sole Searchers', 'Zippity'
+        'Sole Searchers', 'Zippity', 'Eloves Walk it out Crew',
+        "Elove's Walk it out Crew", "Team RC"
     ]
 )
 
