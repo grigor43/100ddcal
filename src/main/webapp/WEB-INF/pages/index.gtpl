@@ -29,10 +29,12 @@
     <script id="member" type="text/html">
     <div class="col-md-2">
       <div style="" class="individual">
-        <div style="height: 63px ">
+        <div style="height: 54px;">
           <h4>{{name}}</h4>
         </div>
-        <p>{{teamName}}</p>
+        <div style="height: 36px;">
+          <p>{{teamName}}</p>
+        </div>
         <h2 class="pull-right">{{score}}</h2>
       </div>
     </div>
