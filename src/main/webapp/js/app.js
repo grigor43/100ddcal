@@ -99,9 +99,9 @@ String.prototype.hashCode = function () {
 
 var pastels = [
     '#B39eb5', '#dea5a4', '#b19cd9',
-    '#ff6961', "#03c03c", '#fdfd96',
+    '#ff6961', '#ffb347', '#fdfd96',
     '#aec6cf', '#f49ac2', '#cfcfc4',
-    '#ffb347', '#836953', '#779ecb'
+    "#03c03c", '#836953', '#779ecb'
 ];
 function reloadDataImpl(offset) {
     $.getJSON('/api/data', {offset: offset}, function (data, status) {
