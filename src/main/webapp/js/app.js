@@ -68,9 +68,6 @@ function processData(data, link) {
 
     $('.box').show();
     plotData(data1, names);
-    var theMoment = moment.utc(data.date);
-
-    $('#lu').html(theMoment.fromNow());
     $('#updatelink').attr('href', link);
     $('#updateTime').show();
     $('#individuals').html('');
@@ -113,6 +110,8 @@ function reloadDataImpl(offset) {
                 if (lastUpdateId != data.id) {
                     processData(data, '/api/data?offset=' + offset);
                     lastUpdateId = data.id;
+                    var theMoment = moment.utc(data.date);
+                    $('#lu').html(theMoment.fromNow());
                 }
             } catch (err) {
                 reloadDataImpl(offset + 1)
