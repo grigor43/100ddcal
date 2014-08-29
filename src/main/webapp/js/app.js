@@ -83,7 +83,7 @@ function processData(data, link) {
 }
 function reloadData() {
     reloadDataImpl(0);
-    setTimeout(reloadData, 1000 * 60 * 5);
+    setTimeout(reloadData, 1000 * 30);
 }
 
 String.prototype.hashCode = function () {
@@ -103,11 +103,17 @@ var pastels = [
     '#aec6cf', '#f49ac2', '#cfcfc4',
     "#03c03c", '#836953', '#779ecb'
 ];
+
+var lastUpdateId = null;
+
 function reloadDataImpl(offset) {
     $.getJSON('/api/data', {offset: offset}, function (data, status) {
         if (status == 'success') {
             try {
-                processData(data, '/api/data?offset=' + offset);
+                if (lastUpdateId != data.id) {
+                    processData(data, '/api/data?offset=' + offset);
+                    lastUpdateId = data.id;
+                }
             } catch (err) {
                 reloadDataImpl(offset + 1)
             }
