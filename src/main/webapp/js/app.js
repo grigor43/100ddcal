@@ -107,12 +107,12 @@ function reloadDataImpl(offset) {
     $.getJSON('/api/data', {offset: offset}, function (data, status) {
         if (status == 'success') {
             try {
-                if (lastUpdateId != data.id) {
+                if (lastUpdateId == data.id) {
                     processData(data, '/api/data?offset=' + offset);
                     lastUpdateId = data.id;
-                    var theMoment = moment.utc(data.date);
-                    $('#lu').html(theMoment.fromNow());
-                }
+                } 
+                var theMoment = moment.utc(data.date);
+                $('#lu').html(theMoment.fromNow());
             } catch (err) {
                 reloadDataImpl(offset + 1)
             }
