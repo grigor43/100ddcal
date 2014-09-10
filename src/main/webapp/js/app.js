@@ -38,11 +38,7 @@ function processData(data, link) {
     console.log(data.data);
     var teams = _.sortBy(data.data, function (team) {
         return parseInt(team.rank.replace(',', ''));
-<<<<<<< HEAD
     }) /*.slice(0, 0 + 5)*/;
-=======
-    }).slice(0, 5);
->>>>>>> 50d298c613ad0dfbb0f081f77bce1bd85735549c
     console.log(teams);
     var data1 = _.map(teams, function (team) {
         return parseInt(team.avgSteps.replace(',', ''))
