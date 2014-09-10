@@ -38,7 +38,11 @@ function processData(data, link) {
     console.log(data.data);
     var teams = _.sortBy(data.data, function (team) {
         return parseInt(team.rank.replace(',', ''));
+<<<<<<< HEAD
     }) /*.slice(0, 0 + 5)*/;
+=======
+    }).slice(0, 5);
+>>>>>>> 50d298c613ad0dfbb0f081f77bce1bd85735549c
     console.log(teams);
     var data1 = _.map(teams, function (team) {
         return parseInt(team.avgSteps.replace(',', ''))
@@ -63,21 +67,16 @@ function processData(data, link) {
     var sortedMembers = _.sortBy(allMembers, function (member) {
         var score = member.score == '-' ? '0' : member.score;
         return -parseInt(score.replace(',', ''));
-    }).slice(0, 0 + 6);
+    }).slice(0, 6);
     console.log(sortedMembers);
 
     $('.box').show();
     plotData(data1, names);
-    var theMoment = moment.utc(data.date);
-
-    $('#lu').html(theMoment.fromNow());
     $('#updatelink').attr('href', link);
     $('#updateTime').show();
     $('#individuals').html('');
     _.each(sortedMembers, function (member) {
-        console.log(member.teamName);
-        console.log((member.teamName.hashCode() + 12 ) % 12);
-        member.color = pastels[(member.teamName.hashCode() + 12 ) % 12];
+        member.color = pastels[(_.indexOf(names, member.teamName, false)) % 12];
         member.name = member.name.toTitleCase();
         $('#individuals').append(ich.member(member));
     });
@@ -85,7 +84,7 @@ function processData(data, link) {
 }
 function reloadData() {
     reloadDataImpl(0);
-    setTimeout(reloadData, 1000 * 60 * 5);
+    setTimeout(reloadData, 1000 * 30);
 }
 
 String.prototype.hashCode = function () {
@@ -101,16 +100,23 @@ String.prototype.hashCode = function () {
 
 var pastels = [
     '#B39eb5', '#dea5a4', '#b19cd9',
-    '#779ecb', '#836953', "#03c03c",
+    '#ff6961', '#ffb347', '#fdfd96',
     '#aec6cf', '#f49ac2', '#cfcfc4',
-    '#ffb347', '#ff6961', '#fdfd96'
-
+    "#03c03c", '#836953', '#779ecb'
 ];
+
+var lastUpdateId = null;
+
 function reloadDataImpl(offset) {
-    $.getJSON('/api/data', {offset: offset}, function (data, status, xhr) {
+    $.getJSON('/api/data', {offset: offset}, function (data, status) {
         if (status == 'success') {
             try {
-                processData(data, '/api/data?offset=' + offset);
+                if (lastUpdateId != data.id) {
+                    processData(data, '/api/data?offset=' + offset);
+                    lastUpdateId = data.id;
+                }
+                var theMoment = moment.utc(data.date);
+                $('#lu').html(theMoment.fromNow());
             } catch (err) {
                 reloadDataImpl(offset + 1)
             }
