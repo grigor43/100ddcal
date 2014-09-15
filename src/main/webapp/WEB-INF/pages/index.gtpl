@@ -63,11 +63,11 @@
         </div>
         </script>
 
-        <script src="/js/moment.js"></script>
-        <script src="/js/ICanHaz.min.js"></script>
-        <script src="/js/underscore.js"></script>
-        <script src="/js/d3.min.js"></script>
-        <script src="/js/c3.min.js"></script>
-        <script src="/js/app.js"></script>
+        <script async src="/js/moment.js"></script>
+        <script async src="/js/ICanHaz.min.js"></script>
+        <script async src="/js/underscore.js"></script>
+        <script async src="/js/d3.min.js"></script>
+        <script async src="/js/c3.min.js"></script>
+        <script async src="/js/app.js"></script>
     </body>
 </html>

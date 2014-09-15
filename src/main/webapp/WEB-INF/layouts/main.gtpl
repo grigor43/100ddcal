@@ -70,7 +70,9 @@
             <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1000;"
                  src="/images/fork-me.png"
                  alt="Fork me on GitHub"
-                 data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+                 data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+                 height="149" width="149"
+                 >
         </a>
 
         <div class="container" >
@@ -80,7 +82,7 @@
 
         </div>
         <script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script async type="text/javascript" src="/js/bootstrap.min.js"></script>
 
     </body>
 </html>
