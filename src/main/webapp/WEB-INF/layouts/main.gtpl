@@ -82,7 +82,7 @@
 
         </div>
         <script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
-        <script async type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
     </body>
 </html>
