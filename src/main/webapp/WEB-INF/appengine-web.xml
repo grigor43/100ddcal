@@ -31,9 +31,9 @@
     <precompilation-enabled>true</precompilation-enabled>
 
     <static-files>
-      <include path="/**.css" expiration="4d 5h" />
-      <include path="/**.js" expiration="4d 5h" />
-      <include path="/**.png" expiration="4d 5h" />
+      <include path="/**.css" expiration="30d" />
+      <include path="/**.js" expiration="30d" />
+      <include path="/**.png" expiration="30d" />
 
       <exclude path="/WEB-INF/**.groovy" />
       <exclude path="**.gtpl" />
