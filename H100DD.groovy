@@ -1,6 +1,6 @@
 @Grab("org.codehaus.geb:geb-core:0.7.2")
-@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.42.2")
-@Grab("org.seleniumhq.selenium:selenium-support:2.42.2")
+@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.43.1")
+@Grab("org.seleniumhq.selenium:selenium-support:2.43.1")
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
 
 import geb.Browser
