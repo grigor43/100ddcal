@@ -37,11 +37,11 @@ function plotData(data1, names) {
 function processData(data, link) {
     console.log(data.data);
     var teams = _.sortBy(data.data, function (team) {
-        return parseInt(team.rank.replace(',', ''));
+        return parseInt(team.rank.replace(/,/g, ''));
     }).slice(0, 5);
     console.log(teams);
     var data1 = _.map(teams, function (team) {
-        return parseInt(team.avgSteps.replace(',', ''))
+        return parseInt(team.avgSteps.replace(/,/g, ''))
     });
     var names = _.map(teams, function (team) {
         return team.name;
@@ -62,7 +62,7 @@ function processData(data, link) {
 
     var sortedMembers = _.sortBy(allMembers, function (member) {
         var score = member.score == '-' ? '0' : member.score;
-        return -parseInt(score.replace(',', ''));
+        return -parseInt(score.replace(/,/g, ''));
     }).slice(0, 6);
     console.log(sortedMembers);
 
