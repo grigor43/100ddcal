@@ -63,7 +63,7 @@ function processData(data, link) {
     var sortedMembers = _.sortBy(allMembers, function (member) {
         var score = member.score == '-' ? '0' : member.score;
         return -parseInt(score.replace(/,/g, ''));
-    }).slice(0, 6);
+    }).slice(0, 12);
     console.log(sortedMembers);
 
     $('.box').show();

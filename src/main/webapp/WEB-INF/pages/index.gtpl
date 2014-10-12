@@ -11,6 +11,7 @@
             height: 162px;
             padding: 8px 8px 0 8px;
             border-radius: 10px;
+            margin-bottom: 18px;
         }
         .individual .name {
           height: 54px;
