@@ -68,7 +68,9 @@ class Humana {
       println "[Title] ${title}"
 
       println "Loading 100DD"
-      $('.challenge-detail a').click()
+      $('.challenge-detail a').find {
+        it.text() == '100 Day Dash'
+      }.click()
       waitFor {
         title.contains 'Challenge '
       }
