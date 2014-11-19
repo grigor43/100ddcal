@@ -102,7 +102,9 @@ class Humana {
             });""")
           // $('.alphabetical-list-item a', text: team.toUpperCase()[0]).click()
           println "Done clicking letter"
-          sleep 5000
+          waitFor {
+            $('.alphabetical-list-item span').text() == team.toUpperCase()[0]
+          }
         }
         driver.executeScript(
           """\$.each(\$('.team-name a span'), function(a,b){
@@ -110,21 +112,12 @@ class Humana {
               b.click();
             }
           });""")
-        // $('.team-name a span', text: team).click()
         waitFor {
           title.contains 'Team Detail'
         }
         dealWithPopup(browser)
         println "[Title] ${title}"
 
-/*        waitFor {
-          $('#team-leaderboard .link-tertiary.name').size() == 1
-        }
-
-        $('#team-leaderboard .link-tertiary.name').click()
-        dealWithPopup(browser)
-        println "[Title] ${title}"
-*/
         waitFor {
           $('.team-rank .block').text()
         }
