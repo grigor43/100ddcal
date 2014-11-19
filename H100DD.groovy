@@ -10,12 +10,15 @@ import groovyx.net.http.HTTPBuilder
 class Humana {
   boolean waitFor(double timeout, double interval, Closure condition) {
     if (timeout < 0) {
+      println "F"
       return false
     }
     boolean passed = condition()
     if (passed) {
+      println "T"
       return true
     } else {
+      System.out.print "."
       sleep((long) (interval * 1000))
       waitFor(timeout - interval, interval, condition)
     }
@@ -68,17 +71,9 @@ class Humana {
       println "[Title] ${title}"
 
       println "Loading 100DD"
-      $('.challenge-detail a').click()
+      $('.challenge-detail a span', text: '100 Day Dash').parent().click()
       waitFor {
         title.contains 'Challenge '
-      }
-      dealWithPopup(browser)
-      println "[Title] ${title}"
-
-      println "Loading Leaderboard"
-      $('a.link-secondary')[-2].click()
-      waitFor {
-        title.contains 'Leaderboard'
       }
       dealWithPopup(browser)
       println "[Title] ${title}"
@@ -90,27 +85,49 @@ class Humana {
         if (idx++) {
           go theUrl
           waitFor {
-            title.contains 'Leaderboard'
+            title.contains 'Challenge '
           }
         }
         dealWithPopup(browser)
         println "Loading team '$team'"
-        $('#team-leaderboard .input-text') << team
-        $('#team-leaderboard button').click()
+        if ($('.alphabetical-list-item span', text: team.toUpperCase()[0])) {
+          println "Active letter"
+        } else {
+          println "Clicking ${team.toUpperCase()[0]}..."
+          driver.executeScript(
+            """\$.each(\$('.alphabetical-list-item a'), function(a,b) {
+              if (b.innerHTML == '${team.toUpperCase()[0]}') {
+                b.click();
+              }
+            });""")
+          // $('.alphabetical-list-item a', text: team.toUpperCase()[0]).click()
+          println "Done clicking letter"
+          sleep 5000
+        }
+        driver.executeScript(
+          """\$.each(\$('.team-name a span'), function(a,b){
+            if (b.innerHTML == "${team}") {
+              b.click();
+            }
+          });""")
+        // $('.team-name a span', text: team).click()
         waitFor {
           title.contains 'Team Detail'
         }
         dealWithPopup(browser)
         println "[Title] ${title}"
 
-        waitFor {
+/*        waitFor {
           $('#team-leaderboard .link-tertiary.name').size() == 1
         }
 
         $('#team-leaderboard .link-tertiary.name').click()
         dealWithPopup(browser)
         println "[Title] ${title}"
-
+*/
+        waitFor {
+          $('.team-rank .block').text()
+        }
         def rank = $('.team-rank .block').text()
         def avgSteps = $('.team-statistics .block')[1].text()
         println "${team} - ${rank} - ${avgSteps}"
@@ -141,9 +158,10 @@ List<Map> maps
 maps = humana.run(
     env['HUM_USER'], env['HUM_PASS'],
     [
+        'Eloves Walk it out Crew', "Elove's Walk it out Crew",
         'Aerobic Task Force', 'One Hit Runners',
-        'Sole Searchers', 'Zippity', 'Eloves Walk it out Crew',
-        "Elove's Walk it out Crew", "Team RC"
+        'Sole Searchers', 'Zippity',
+        "Team RC"
     ]
 )
 
