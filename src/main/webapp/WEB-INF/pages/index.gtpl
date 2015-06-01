@@ -24,6 +24,7 @@
           margin: -5px -11px;
           padding: 5px 11px;
           font-family: 'Special Elite', 'Courier New', Courier, monospace;
+          font-size: 12px;
         }
         </style>
     </head>
