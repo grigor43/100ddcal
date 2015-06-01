@@ -1,6 +1,7 @@
 package h100
 
 import groovyx.gaelyk.datastore.Entity
+import groovyx.gaelyk.datastore.Unindexed
 
 /**
  * Created by rahulsomasunderam on 8/18/14.
@@ -8,5 +9,5 @@ import groovyx.gaelyk.datastore.Entity
 @Entity
 class Report implements Serializable {
     Date date
-    String data
+    @Unindexed String data
 }

@@ -8,7 +8,7 @@ class CacheHelper {
     def memcacheService = MemcacheServiceFactory.memcacheService
     T retval
     try {
-      retval = memcacheService.get(cacheName)
+      retval = memcacheService.get(cacheName) as T
       if (!retval) {
         retval = closure.call()
         memcacheService.put(cacheName, retval, Expiration.byDeltaSeconds(60*60*3))
@@ -17,7 +17,7 @@ class CacheHelper {
       retval = closure.call()
       memcacheService.put(cacheName, retval, Expiration.byDeltaSeconds(60*60*3))
     }
-    return retval
+    retval
   }
 
   static void clearAll() {
