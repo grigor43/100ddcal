@@ -6,6 +6,15 @@ String.prototype.toTitleCase = function (n) {
     });
 };
 
+var pastels = [
+    '#B39eb5', '#dea5a4', '#b19cd9',
+    '#ff6961', '#ffb347', '#fdfd96',
+    '#aec6cf', '#f49ac2', '#cfcfc4',
+    "#03c03c", '#836953', '#779ecb'
+];
+
+var teamColors = [];
+
 function plotData(data1, names) {
     var chart = c3.generate({
         data: {
@@ -13,7 +22,17 @@ function plotData(data1, names) {
                 data1,
             ],
             type: 'bar',
-            labels: true
+            labels: true,
+            color: function(color, d) {
+              console.log ("Color: " + color);
+              console.log (d);
+              if (teamColors.length > d.index) {
+                return teamColors[d.index].color;
+              } else {
+                return color;
+              }
+            },
+            colors: pastels
         },
         legend: {
             show: false
@@ -40,6 +59,10 @@ function processData(data, link) {
         return parseInt(team.rank.replace(/,/g, ''));
     }) /*.slice(0, 0 + 5)*/;
     console.log(teams);
+    var idx = 0;
+    _.each(teams, function(team){
+      teamColors.push({team: team, color: pastels[idx++]});
+    });
     var data1 = _.map(teams, function (team) {
         return parseInt(team.avgSteps.replace(/,/g, ''))
     });
@@ -93,13 +116,6 @@ String.prototype.hashCode = function () {
     }
     return hash;
 };
-
-var pastels = [
-    '#B39eb5', '#dea5a4', '#b19cd9',
-    '#ff6961', '#ffb347', '#fdfd96',
-    '#aec6cf', '#f49ac2', '#cfcfc4',
-    "#03c03c", '#836953', '#779ecb'
-];
 
 var lastUpdateId = null;
 
