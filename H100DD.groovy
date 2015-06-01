@@ -1,6 +1,6 @@
-@Grab("org.codehaus.geb:geb-core:0.7.2")
-@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.43.1")
-@Grab("org.seleniumhq.selenium:selenium-support:2.43.1")
+@Grab(group='org.gebish', module='geb-core', version='0.10.0')
+@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.45.0")
+@Grab("org.seleniumhq.selenium:selenium-support:2.45.0")
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
 
 import geb.Browser
@@ -55,7 +55,7 @@ class Humana {
       println "Logging in..."
       $('#UserName') << username
       $('#Password') << password
-      $('button')[1].click()
+      $('#form-submit').click()
       waitFor {
         title.contains 'Dashboard'
       }
@@ -71,7 +71,7 @@ class Humana {
       println "[Title] ${title}"
 
       println "Loading 100DD"
-      $('.challenge-detail a span', text: '100 Day Dash').parent().click()
+      $('.challenge-detail a span', text: "Humana's 100 DD - 2015").parent().click()
       waitFor {
         title.contains 'Challenge '
       }
@@ -151,10 +151,7 @@ List<Map> maps
 maps = humana.run(
     env['HUM_USER'], env['HUM_PASS'],
     [
-        'Eloves Walk it out Crew', "Elove's Walk it out Crew",
-        'Aerobic Task Force', 'One Hit Runners',
-        'Sole Searchers', 'Zippity',
-        "Team RC"
+        'Everything Is Groovy',
     ]
 )
 
