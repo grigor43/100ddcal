@@ -8,17 +8,34 @@ import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 
 class Humana {
+  private static final ESC = 0x1b as char
+
+  static int lineLength = 0
+  static void puts(String data) {
+    System.out.print data
+    lineLength += data.length()
+  }
+  static void ok()   {status("${ESC}[32m[  OK  ]${ESC}[0m")}
+  static void fail() {status("${ESC}[31m[ FAIL ]${ESC}[0m")}
+  static void status(String status) {
+    println ''.padRight(80 - lineLength) + status
+    lineLength = 0
+  }
+  static void title(String title) {
+    println "        [Title] ${title}"
+  }
+
   boolean waitFor(double timeout, double interval, Closure condition) {
     if (timeout < 0) {
-      println "F"
+      fail()
       return false
     }
     boolean passed = condition()
     if (passed) {
-      println "T"
+      ok()
       return true
     } else {
-      System.out.print "."
+      puts "."
       sleep((long) (interval * 1000))
       waitFor(timeout - interval, interval, condition)
     }
@@ -45,14 +62,14 @@ class Humana {
         driver.javascriptEnabled = true
       }
 
-      println "Loading..."
+      puts "Loading..."
       go 'https://www.humana.com/logon'
       waitFor {
         title.contains 'Sign In'
       }
-      println "[Title] ${title}"
+      title(title)
 
-      println "Logging in..."
+      puts "Logging in..."
       $('#UserName') << username
       $('#Password') << password
       $('#form-submit').click()
@@ -60,23 +77,23 @@ class Humana {
         title.contains 'Dashboard'
       }
       dealWithPopup(browser)
-      println "[Title] ${title}"
+      title(title)
 
-      println "Loading challenges"
+      puts "Loading challenges"
       go "https://www.humana.com/members/get-healthy/challenges/"
       waitFor {
         title.contains 'Challenges'
       }
       dealWithPopup(browser)
-      println "[Title] ${title}"
+      title(title)
 
-      println "Loading 100DD"
+      puts "Loading 100DD"
       $('.challenge-detail a span', text: "Humana's 100 DD - 2015").parent().click()
       waitFor {
         title.contains 'Challenge '
       }
       dealWithPopup(browser)
-      println "[Title] ${title}"
+      title(title)
 
       def theUrl = driver.currentUrl
       println "The URL: ${theUrl}"
@@ -89,23 +106,22 @@ class Humana {
           }
         }
         dealWithPopup(browser)
-        println "Loading team '$team'"
         if ($('.alphabetical-list-item span', text: team.toUpperCase()[0])) {
           println "Active letter"
         } else {
-          println "Clicking ${team.toUpperCase()[0]}..."
+          puts "Clicking ${team.toUpperCase()[0]}"
           driver.executeScript(
             """\$.each(\$('.alphabetical-list-item a'), function(a,b) {
               if (b.innerHTML == '${team.toUpperCase()[0]}') {
                 b.click();
               }
             });""")
-          // $('.alphabetical-list-item a', text: team.toUpperCase()[0]).click()
-          println "Done clicking letter"
           waitFor {
             $('.alphabetical-list-item span').text() == team.toUpperCase()[0]
           }
         }
+
+        puts "Loading team '$team'"
         driver.executeScript(
           """\$.each(\$('.team-name a span'), function(a,b){
             if (b.innerHTML == "${team}") {
@@ -116,7 +132,7 @@ class Humana {
           title.contains 'Team Detail'
         }
         dealWithPopup(browser)
-        println "[Title] ${title}"
+        title(title)
 
         waitFor {
           $('.team-rank .block').text()
@@ -132,12 +148,11 @@ class Humana {
           [name: name, score: score]
         }
         def teamret = [name: team, rank: rank, avgSteps: avgSteps, members: members]
-        println teamret
+        println teamret.members.collect {"    - ${it.name.padRight(40)} ${it.score}"}.join('\n')
         teamret
       }
       quit()
     }
-    println retval
     return retval
   }
 
@@ -160,15 +175,20 @@ def dataMap = [
     data: maps,
     date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 ]
-def json = new JsonBuilder(dataMap).toString()
+
+Humana.puts('Building JSON')
+def json = new JsonBuilder(dataMap).toPrettyString()
+Humana.ok()
 println json
 
 if (json.contains('null') || json.contains('""')) {
   throw new RuntimeException("Null value found")
 }
+Humana.puts "Submitting data"
 def h = new HTTPBuilder('http://h100cal.appspot.com/')
 h.post(
     path: '/store',
     body: dataMap,
     requestContentType: groovyx.net.http.ContentType.JSON
 )
+Humana.ok()
