@@ -103,7 +103,6 @@ function processData(data, link) {
 }
 function reloadData() {
     reloadDataImpl(0);
-    setTimeout(reloadData, 1000 * 30);
 }
 
 String.prototype.hashCode = function () {
@@ -137,4 +136,8 @@ function reloadDataImpl(offset) {
         }
     });
 }
-$(reloadData);
+$(function() {
+    setTimeout(function() {
+        setInterval(reloadData, 1000*30);
+    }, 1000);
+});
