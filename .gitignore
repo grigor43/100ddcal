@@ -66,3 +66,4 @@ crashlytics-build.properties
 ### Other ignores
 classes
 .gradletasknamecache
+data-backup/datastore-indexes-auto.xml
