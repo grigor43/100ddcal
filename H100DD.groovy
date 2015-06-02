@@ -114,6 +114,7 @@ class Humana {
       retval = teams.collect { team ->
         println "\n\n"
         if (idx++) {
+          puts "Loading Challenge Page"
           go theUrl
           waitFor {
             title.contains 'Challenge '
@@ -170,6 +171,7 @@ class Humana {
         teamret
       }
       quit()
+      println "\n\n"
     }
     return retval
   }
