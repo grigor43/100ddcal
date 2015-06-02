@@ -6,6 +6,8 @@
 import geb.Browser
 import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
+import com.thoughtworks.selenium.SeleniumException
+import org.openqa.selenium.WebDriverException
 
 class Humana {
   private static final ESC = 0x1b as char
@@ -30,7 +32,15 @@ class Humana {
       fail()
       return false
     }
-    boolean passed = condition()
+    boolean passed = false
+    try {
+      passed = condition()
+    } catch(SeleniumException ignored) {
+
+    } catch(WebDriverException ignored) {
+
+    }
+
     if (passed) {
       ok()
       return true
@@ -57,7 +67,10 @@ class Humana {
   List<Map> run(String username, String password, List<String> teams) {
     int idx = 0
     List retval
+    def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss")
     Browser.drive {
+      browser.config.reportsDir = new File('build')
+      driver.manage().window().maximize()
       if (driver.class.canonicalName == 'HtmlUnitDriver') {
         driver.javascriptEnabled = true
       }
@@ -99,6 +112,7 @@ class Humana {
       println "The URL: ${theUrl}"
 
       retval = teams.collect { team ->
+        println "\n\n"
         if (idx++) {
           go theUrl
           waitFor {
@@ -117,7 +131,7 @@ class Humana {
               }
             });""")
           waitFor {
-            $('.alphabetical-list-item span').text() == team.toUpperCase()[0]
+            driver.executeScript("""return \$('.alphabetical-list-item span').text();""") == team.toUpperCase()[0]
           }
         }
 
@@ -134,9 +148,13 @@ class Humana {
         dealWithPopup(browser)
         title(title)
 
+        puts "Waiting for page to load"
         waitFor {
           $('.team-rank .block').text()
         }
+
+        def teamName = team.replaceAll(/[^a-zA-Z0-9]/, '-')
+        report "${timestamp}_${teamName}"
         def rank = $('.team-rank .block').text()
         def avgSteps = $('.team-statistics .block')[1].text()
         println "${team} - ${rank} - ${avgSteps}"
@@ -166,7 +184,7 @@ List<Map> maps
 maps = humana.run(
     env['HUM_USER'], env['HUM_PASS'],
     [
-        'Everything Is Groovy',
+        'Everything Is Groovy', 'Zippity'
     ]
 )
 
