@@ -148,7 +148,7 @@ class Humana {
           [name: name, score: score]
         }
         def teamret = [name: team, rank: rank, avgSteps: avgSteps, members: members]
-        println teamret.members.collect {"    - ${it.name.padRight(40)} ${it.score}"}.join('\n')
+        println teamret.members.collect {"    - ${it.name.padRight(30)} ${it.score.padLeft(9)}"}.join('\n')
         teamret
       }
       quit()
@@ -179,7 +179,7 @@ def dataMap = [
 Humana.puts('Building JSON')
 def json = new JsonBuilder(dataMap).toPrettyString()
 Humana.ok()
-println json
+//println json
 
 if (json.contains('null') || json.contains('""')) {
   throw new RuntimeException("Null value found")
