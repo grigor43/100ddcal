@@ -131,28 +131,31 @@ class Humana {
                     }
                 }
                 dealWithPopup(browser)
-                if ($('.alphabetical-list-item span', text: team.toUpperCase()[0])) {
+
+                def leadChar = team.toUpperCase()[0]
+                if (leadChar =~ /[0-9]/) {
+                    leadChar = '123'
+                } else if (leadChar =~ /[A-Z]/) {
+                    // do nothing
+                } else {
+                    leadChar = 'Other'
+                }
+
+                if ($('.alphabetical-list-item span', text: leadChar)) {
                     println "Active letter"
                 } else {
-                    puts "Clicking ${team.toUpperCase()[0]}"
-                    driver.executeScript(
-            """\$.each(\$('.alphabetical-list-item a'), function(a,b) {
-              if (b.innerHTML == '${team.toUpperCase()[0]}') {
-                b.click();
-              }
-            });""")
+                    puts "Clicking ${leadChar}"
+                    while (!$('.alphabetical-list-item a', text: leadChar).isDisplayed()) {
+                        $('.slide-next').find {it.isDisplayed()}.click()
+                    }
+                    $('.alphabetical-list-item a', text: leadChar).click()
                     waitFor {
-            driver.executeScript("""return \$('.alphabetical-list-item span').text();""") == team.toUpperCase()[0]
+                        $('.team-name a span')*.text().contains(team)
                     }
                 }
 
                 puts "Loading team '$team'"
-                driver.executeScript(
-          """\$.each(\$('.team-name a span'), function(a,b){
-            if (b.innerHTML == "${team}") {
-              b.click();
-            }
-          });""")
+                $('.team-name a span', text: team).click()
                 waitFor {
                     title.contains 'Team Detail'
                 }
@@ -190,19 +193,15 @@ class Humana {
 }
 
 def env = System.getenv()
-def humana = new Humana()
-List<Map> maps
 
 LogFactory.factory.setAttribute "org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog"
 Logger.getLogger("com.gargoylesoftware.htmlunit").level = Level.OFF
 Logger.getLogger("org.apache.commons.httpclient").level = Level.OFF
 
-maps = humana.run(
-        env['HUM_USER'], env['HUM_PASS'],
-        [
-                'Everything Is Groovy', 'Zippity'
-        ]
-)
+ArrayList<String> teamNames = [
+        'Everything Is Groovy', 'Zippity'
+]
+def maps = new Humana().run(env['HUM_USER'], env['HUM_PASS'], teamNames)
 
 TimeZone.setDefault(TimeZone.getTimeZone('UTC'))
 def dataMap = [
@@ -213,7 +212,6 @@ def dataMap = [
 Humana.puts('Building JSON')
 def json = new JsonBuilder(dataMap).toPrettyString()
 Humana.ok()
-//println json
 
 if (json.contains('null') || json.contains('""')) {
     throw new RuntimeException("Null value found")
