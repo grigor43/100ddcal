@@ -1,6 +1,6 @@
 @Grab(group = 'org.gebish', module = 'geb-core', version = '0.10.0')
-@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.45.0")
-//@Grab("org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0")
+//@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.45.0")
+@Grab("org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0")
 @Grab("org.seleniumhq.selenium:selenium-support:2.45.0")
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
 
