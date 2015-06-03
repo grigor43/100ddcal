@@ -18,19 +18,17 @@ var teamColors = [];
 function plotData(data1, names) {
     var chart = c3.generate({
         data: {
-            columns: [
-                data1,
-            ],
+            columns: [ data1 ],
             type: 'bar',
             labels: true,
-            color: function(color, d) {
-              console.log ("Color: " + color);
-              console.log (d);
-              if (teamColors.length > d.index) {
-                return teamColors[d.index].color;
-              } else {
-                return color;
-              }
+            color: function (color, d) {
+                console.log("Color: " + color);
+                console.log(d);
+                if (teamColors.length > d.index) {
+                    return teamColors[d.index].color;
+                } else {
+                    return color;
+                }
             },
             colors: pastels
         },
@@ -52,6 +50,8 @@ function plotData(data1, names) {
         }
 
     });
+
+    chart.flush();
 }
 function processData(data, link) {
     console.log(data.data);
@@ -60,8 +60,8 @@ function processData(data, link) {
     }) /*.slice(0, 0 + 5)*/;
     console.log(teams);
     var idx = 0;
-    _.each(teams, function(team){
-      teamColors.push({team: team, color: pastels[idx++]});
+    _.each(teams, function (team) {
+        teamColors.push({team: team, color: pastels[idx++]});
     });
     var data1 = _.map(teams, function (team) {
         return parseInt(team.avgSteps.replace(/,/g, ''))
@@ -136,8 +136,9 @@ function reloadDataImpl(offset) {
         }
     });
 }
-$(function() {
-    setTimeout(function() {
-        setInterval(reloadData, 1000*30);
-    }, 1000);
+$(function () {
+    reloadData();
+    setInterval(function () {
+        reloadData();
+    }, 1000 * 30);
 });
