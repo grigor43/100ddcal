@@ -24,9 +24,12 @@ class Humana {
         lineLength += data.length()
     }
 
-    static void ok() { status("${ESC}[32m[  OK  ]${ESC}[0m") }
+    private static String ansi(int code) {
+        "${ESC}[${code}m"
+    }
+    static void ok() { status("${ansi(32)}[  OK  ]${ansi(0)}") }
 
-    static void fail() { status("${ESC}[31m[ FAIL ]${ESC}[0m") }
+    static void fail() { status("${ansi(31)}[ FAIL ]${ansi(0)}") }
 
     static void status(String status) {
         println ''.padRight(80 - lineLength) + status
@@ -34,7 +37,7 @@ class Humana {
     }
 
     static void title(String title) {
-        println "        [Title] ${title}"
+        println "        ${ansi(34)}[Title] ${title}${ansi(0)}"
     }
 
     boolean waitFor(double timeout, double interval, Closure condition) {
