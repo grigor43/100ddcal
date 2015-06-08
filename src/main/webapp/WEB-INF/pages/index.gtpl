@@ -64,7 +64,10 @@
                 <p>On Mac OS X, run this with the right values for your vitality username and password. This has been
                 tested with groovy 2.4, but should work with a wider range of versions.</p>
                 <pre>HUM_USER=????? HUM_PASS=????? groovy https://raw.githubusercontent.com/rahulsom/100ddcal/master/H100DD.groovy</pre>
-                <p></p>
+                <p>&nbsp;</p>
+                <p>On a Humana network, it can take a very long time. Consider inserting this between groovy and the url</p>
+                <pre>-Dgroovy.grape.report.downloads=true</pre>
+                <p>&nbsp;</p>
                 <p>If you want to improve visualization or data collection, please send a Pull Request</p>
               </div>
               <div class="modal-footer">
