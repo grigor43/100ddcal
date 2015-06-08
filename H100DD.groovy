@@ -1,5 +1,4 @@
 @Grab(group = 'org.gebish', module = 'geb-core', version = '0.10.0')
-//@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.45.0")
 @Grab("org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0")
 @Grab("org.seleniumhq.selenium:selenium-support:2.45.0")
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
@@ -78,6 +77,7 @@ class Humana {
     }
 
     List<Map> run(String username, String password, List<String> teams) {
+        println "Thank you for trusting random scripts from the internet!"
         int idx = 0
         List retval
         def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss")
@@ -90,7 +90,7 @@ class Humana {
 
             puts "Loading..."
             go 'https://www.humana.com/logon'
-            waitFor {
+            assert waitFor {
                 title.contains 'Sign In'
             }
             title(title)
@@ -99,7 +99,7 @@ class Humana {
             $('#UserName') << username
             $('#Password') << password
             $('#form-submit').click()
-            waitFor {
+            assert waitFor {
                 title.contains 'Dashboard'
             }
             dealWithPopup(browser)
@@ -107,7 +107,7 @@ class Humana {
 
             puts "Loading challenges"
             go "https://www.humana.com/members/get-healthy/challenges/"
-            waitFor {
+            assert waitFor {
                 title.contains 'Challenges'
             }
             dealWithPopup(browser)
@@ -115,7 +115,7 @@ class Humana {
 
             puts "Loading 100DD"
             $('.challenge-detail a span', text: "Humana's 100 DD - 2015").parent().click()
-            waitFor {
+            assert waitFor {
                 title.contains 'Challenge '
             }
             dealWithPopup(browser)
@@ -152,21 +152,21 @@ class Humana {
                         $('.slide-next').find {it.isDisplayed()}.click()
                     }
                     $('.alphabetical-list-item a', text: leadChar).click()
-                    waitFor {
+                    assert waitFor {
                         $('.team-name a span')*.text().contains(team)
                     }
                 }
 
                 puts "Loading team '$team'"
                 $('.team-name a span', text: team).click()
-                waitFor {
+                assert waitFor {
                     title.contains 'Team Detail'
                 }
                 dealWithPopup(browser)
                 title(title)
 
                 puts "Waiting for page to load"
-                waitFor {
+                assert waitFor {
                     $('.team-rank .block').text()
                 }
 
@@ -204,7 +204,33 @@ Logger.getLogger("org.apache.commons.httpclient").level = Level.OFF
 ArrayList<String> teamNames = [
         'Everything Is Groovy', 'Zippity'
 ]
-def maps = new Humana().run(env['HUM_USER'], env['HUM_PASS'], teamNames)
+def username = env['HUM_USER']
+def password = env['HUM_PASS']
+if ( (!username || !password) && System.console().istty()) {
+    if (!username) {
+        for (int i = 0; i < 3; i ++) {
+            username = System.console().readLine ('What is your vitality username? ').trim()
+            if (username) {
+                break
+            }
+        }
+    }
+    if (!username) {
+        System.exit(2)
+    }
+    if (!password) {
+        for (int i = 0; i < 3; i ++) {
+            password = new String(System.console().readPassword ('What is your vitality password? ') ?: '').trim()
+            if (password) {
+                break
+            }
+        }
+    }
+}
+if (!username || !password) {
+    System.exit(1)
+}
+def maps = new Humana().run(username, password, teamNames)
 
 TimeZone.setDefault(TimeZone.getTimeZone('UTC'))
 def dataMap = [

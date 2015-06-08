@@ -53,19 +53,24 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">Help update the data</h4>
               </div>
               <div class="modal-body">
-                <p>On Mac OS X, run this with the right values for your vitality username and password. This has been
-                tested with groovy 2.4, but should work with a wider range of versions.</p>
+                <p>Run this with the right values for your vitality username and password. If you skip those, it will
+                        prompt you. This has been tested with groovy 2.4, but should work with a wider range of
+                        versions. </p>
                 <pre>HUM_USER=????? HUM_PASS=????? groovy https://raw.githubusercontent.com/rahulsom/100ddcal/master/H100DD.groovy</pre>
                 <p>&nbsp;</p>
-                <p>On a Humana network, it can take a very long time. Consider inserting this between groovy and the url</p>
+                <p>On a Humana network, it can take a very long time. Consider inserting this between groovy and the
+                        url</p>
                 <pre>-Dgroovy.grape.report.downloads=true</pre>
                 <p>&nbsp;</p>
                 <p>If you want to improve visualization or data collection, please send a Pull Request</p>
