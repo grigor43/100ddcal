@@ -1,5 +1,6 @@
 @Grab(group = 'org.gebish', module = 'geb-core', version = '0.10.0')
-@Grab("org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0")
+//@Grab("org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0")
+@Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.45.0")
 @Grab("org.seleniumhq.selenium:selenium-support:2.45.0")
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
 
@@ -202,7 +203,8 @@ Logger.getLogger("com.gargoylesoftware.htmlunit").level = Level.OFF
 Logger.getLogger("org.apache.commons.httpclient").level = Level.OFF
 
 ArrayList<String> teamNames = [
-        'Everything Is Groovy', 'Zippity'
+        'Everything Is Groovy', 'Zippity', 'Sole Searchers',
+        "Campbell's 100 day dashers!"
 ]
 def username = env['HUM_USER']
 def password = env['HUM_PASS']
