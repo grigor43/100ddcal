@@ -61,7 +61,8 @@
                 <h4 class="modal-title" id="myModalLabel">Help update the data</h4>
               </div>
               <div class="modal-body">
-                <p>On Mac OS X, run this with the right values for your vitality username and password</p>
+                <p>On Mac OS X, run this with the right values for your vitality username and password. This has been
+                tested with groovy 2.4, but should work with a wider range of versions.</p>
                 <pre>HUM_USER=????? HUM_PASS=????? groovy https://raw.githubusercontent.com/rahulsom/100ddcal/master/H100DD.groovy</pre>
                 <p></p>
                 <p>If you want to improve visualization or data collection, please send a Pull Request</p>
