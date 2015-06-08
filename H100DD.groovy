@@ -222,7 +222,8 @@ if ( (!username || !password) && System.console().istty()) {
     }
     if (!password) {
         for (int i = 0; i < 3; i ++) {
-            password = new String(System.console().readPassword ('What is your vitality password? ') ?: '').trim()
+            def readPassword = System.console().readPassword('What is your vitality password? ')
+            password = new String(readPassword ?: '' as char[]).trim()
             if (password) {
                 break
             }
