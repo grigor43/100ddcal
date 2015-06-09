@@ -204,7 +204,7 @@ Logger.getLogger("org.apache.commons.httpclient").level = Level.OFF
 
 ArrayList<String> teamNames = [
         'Everything Is Groovy', 'Zippity', 'Sole Searchers',
-        "Campbell's 100 day dashers!"
+        "Campbell's 100 day dashers!", 'San Diego Ala Carte'
 ]
 def username = env['HUM_USER']
 def password = env['HUM_PASS']
