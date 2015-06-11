@@ -1,20 +1,42 @@
-@Grab(group = 'org.gebish', module = 'geb-core', version = '0.10.0')
-//@Grab("org.seleniumhq.selenium:selenium-htmlunit-driver:2.45.0")
+@Grab('org.gebish:geb-core:0.10.0')
 @Grab("org.seleniumhq.selenium:selenium-firefox-driver:2.45.0")
 @Grab("org.seleniumhq.selenium:selenium-support:2.45.0")
 @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
 
+import com.thoughtworks.selenium.SeleniumException
 import geb.Browser
 import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
-import org.apache.commons.logging.LogFactory
 import org.openqa.selenium.WebDriverException
-import com.thoughtworks.selenium.SeleniumException
 
-import java.util.logging.Level
-import java.util.logging.Logger
+class UrlCache {
+    @Delegate
+    Map<String, String> delegate = [:]
+
+    void persist() {
+        new File('/tmp/h100dd-urls.json').text = new JsonBuilder(delegate).toPrettyString()
+    }
+
+    UrlCache() {
+        if (new File('/tmp/h100dd-urls.json').exists()) {
+            delegate = new JsonSlurper().parse(new File('/tmp/h100dd-urls.json')) as Map<String, String>
+        }
+    }
+
+}
 
 class Humana {
+
+    Humana(Browser browser, UrlCache urlCache) {
+        println "Thank you for trusting random scripts from the internet!"
+        this.theBrowser = browser
+        this.urlCache = urlCache
+    }
+
+    private Browser theBrowser
+    private UrlCache urlCache
+
     private static final ESC = 0x1b as char
 
     static int lineLength = 0
@@ -27,6 +49,7 @@ class Humana {
     private static String ansi(int code) {
         "${ESC}[${code}m"
     }
+
     static void ok() { status("${ansi(32)}[  OK  ]${ansi(0)}") }
 
     static void fail() { status("${ansi(31)}[ FAIL ]${ansi(0)}") }
@@ -77,12 +100,35 @@ class Humana {
         }
     }
 
-    List<Map> run(String username, String password, List<String> teams) {
-        println "Thank you for trusting random scripts from the internet!"
-        int idx = 0
-        List retval
-        def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss")
-        Browser.drive {
+    void initChallengeHome(String challengeName) {
+        if (urlCache['challengeUrl']) {
+            return
+        }
+        Browser.drive(theBrowser) {
+            puts "Loading challenges"
+            go "https://www.humana.com/members/get-healthy/challenges/"
+            assert waitFor {
+                title.contains 'Challenges'
+            }
+            dealWithPopup(browser)
+            title(title)
+
+            puts "Loading 100DD"
+            $('.challenge-detail a span', text: challengeName).parent().click()
+            assert waitFor {
+                title.contains 'Challenge '
+            }
+            dealWithPopup(browser)
+            title(title)
+
+            urlCache['challengeUrl'] = driver.currentUrl
+            urlCache.persist()
+            println "The URL: ${driver.currentUrl}"
+        }
+    }
+
+    void login(String username, String password) {
+        Browser.drive(theBrowser) {
             browser.config.reportsDir = new File('build')
             driver.manage().window().maximize()
             if (driver.class.simpleName == 'HtmlUnitDriver') {
@@ -105,58 +151,49 @@ class Humana {
             }
             dealWithPopup(browser)
             title(title)
+        }
+    }
 
-            puts "Loading challenges"
-            go "https://www.humana.com/members/get-healthy/challenges/"
-            assert waitFor {
-                title.contains 'Challenges'
-            }
-            dealWithPopup(browser)
-            title(title)
-
-            puts "Loading 100DD"
-            $('.challenge-detail a span', text: "Humana's 100 DD - 2015").parent().click()
-            assert waitFor {
-                title.contains 'Challenge '
-            }
-            dealWithPopup(browser)
-            title(title)
-
-            def theUrl = driver.currentUrl
-            println "The URL: ${theUrl}"
-
-            retval = teams.collect { team ->
-                println "\n\n"
-                if (idx++) {
-                    puts "Loading Challenge Page"
-                    go theUrl
-                    waitFor {
-                        title.contains 'Challenge '
-                    }
+    private void loadLeadChar(String team) {
+        def leadChar = getLeadChar(team)
+        Browser.drive(theBrowser) {
+            if ($('.alphabetical-list-item span', text: leadChar)) {
+                println "Active letter"
+            } else {
+                puts "Clicking ${leadChar}"
+                while (!$('.alphabetical-list-item a', text: leadChar).isDisplayed()) {
+                    $('.slide-next').find { it.isDisplayed() }.click()
                 }
+                $('.alphabetical-list-item a', text: leadChar).click()
+                assert waitFor {
+                    $('.team-name a span')*.text().contains(team)
+                }
+            }
+        }
+    }
+
+    private void loadTeam(String team) {
+        Browser.drive(theBrowser) {
+            if (urlCache["team.${team}"]) {
+                puts "Loading team '$team'"
+                ok()
+                go urlCache["team.${team}"]
                 dealWithPopup(browser)
+                title(title)
 
-                def leadChar = team.toUpperCase()[0]
-                if (leadChar =~ /[0-9]/) {
-                    leadChar = '123'
-                } else if (leadChar =~ /[A-Z]/) {
-                    // do nothing
-                } else {
-                    leadChar = 'Other'
+                puts "Waiting for page to load"
+                assert waitFor {
+                    $('.team-rank .block').text()
+                }
+            } else {
+                puts "Loading Challenge Page"
+                go urlCache['challengeUrl']
+                waitFor {
+                    title.contains 'Challenge '
                 }
 
-                if ($('.alphabetical-list-item span', text: leadChar)) {
-                    println "Active letter"
-                } else {
-                    puts "Clicking ${leadChar}"
-                    while (!$('.alphabetical-list-item a', text: leadChar).isDisplayed()) {
-                        $('.slide-next').find {it.isDisplayed()}.click()
-                    }
-                    $('.alphabetical-list-item a', text: leadChar).click()
-                    assert waitFor {
-                        $('.team-name a span')*.text().contains(team)
-                    }
-                }
+                dealWithPopup(browser)
+                loadLeadChar(team)
 
                 puts "Loading team '$team'"
                 $('.team-name a span', text: team).click()
@@ -171,47 +208,62 @@ class Humana {
                     $('.team-rank .block').text()
                 }
 
-                def teamName = team.replaceAll(/[^a-zA-Z0-9]/, '-')
-                report "${timestamp}_${teamName}"
-                def rank = $('.team-rank .block').text()
-                def avgSteps = $('.team-statistics .block')[1].text()
-                println "${team} - ${rank} - ${avgSteps}"
-                def memberCount = $('.module-team-members li').size()
-
-                def members = (1..memberCount).collect { mbr ->
-                    def name = $('.module-team-members li .p1-left > span')[mbr - 1].text()
-                    def score = $('.module-team-members li span.steps')[mbr - 1].text()
-                    [name: name, score: score]
-                }
-                def teamret = [name: team, rank: rank, avgSteps: avgSteps, members: members]
-                println teamret.members.collect { "    - ${it.name.padRight(30)} ${it.score.padLeft(9)}" }.join('\n')
-                teamret
+                urlCache["team.${team}"] = driver.currentUrl
+                urlCache.persist()
             }
-            quit()
-            println "\n\n"
+            def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss")
+            def teamName = team.replaceAll(/[^a-zA-Z0-9]/, '-')
+            report "${timestamp}_${teamName}"
         }
-        return retval
     }
 
+    Map fetchTeamData(String team) {
+        Map retval = null
+        Browser.drive(theBrowser) {
+            println "\n\n"
+            loadTeam(team)
+
+            def rank = $('.team-rank .block').text()
+            def avgSteps = $('.team-statistics .block')[1].text()
+            println "${team} - ${rank} - ${avgSteps}"
+            def memberCount = $('.module-team-members li').size()
+
+            def members = (1..memberCount).collect { mbr ->
+                def name = $('.module-team-members li .p1-left > span')[mbr - 1].text()
+                def score = $('.module-team-members li span.steps')[mbr - 1].text()
+                [name: name, score: score]
+            }
+            retval = [name: team, rank: rank, avgSteps: avgSteps, members: members]
+            println retval.members.collect { "    - ${it.name.padRight(30)} ${it.score.padLeft(9)}" }.join('\n')
+        }
+        retval
+    }
+
+    private String getLeadChar(String team) {
+        def firstChar = team.toUpperCase()[0]
+        if (firstChar =~ /[0-9]/) {
+            '123'
+        } else if (firstChar =~ /[A-Z]/) {
+            firstChar
+        } else {
+            'Other'
+        }
+    }
 
 }
 
 def env = System.getenv()
 
-LogFactory.factory.setAttribute "org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog"
-Logger.getLogger("com.gargoylesoftware.htmlunit").level = Level.OFF
-Logger.getLogger("org.apache.commons.httpclient").level = Level.OFF
-
-ArrayList<String> teamNames = [
+def teamNames = [
         'Everything Is Groovy', 'Zippity', 'Sole Searchers',
         "Campbell's 100 day dashers!", 'San Diego Ala Carte'
 ]
 def username = env['HUM_USER']
 def password = env['HUM_PASS']
-if ( (!username || !password) && System.console().istty()) {
+if ((!username || !password) && System.console().istty()) {
     if (!username) {
-        for (int i = 0; i < 3; i ++) {
-            username = System.console().readLine ('What is your vitality username? ').trim()
+        for (int i = 0; i < 3; i++) {
+            username = System.console().readLine('What is your vitality username? ').trim()
             if (username) {
                 break
             }
@@ -221,7 +273,7 @@ if ( (!username || !password) && System.console().istty()) {
         System.exit(2)
     }
     if (!password) {
-        for (int i = 0; i < 3; i ++) {
+        for (int i = 0; i < 3; i++) {
             def readPassword = System.console().readPassword('What is your vitality password? ')
             password = new String(readPassword ?: '' as char[]).trim()
             if (password) {
@@ -233,13 +285,18 @@ if ( (!username || !password) && System.console().istty()) {
 if (!username || !password) {
     System.exit(1)
 }
-def maps = new Humana().run(username, password, teamNames)
+
+List<Map> maps = []
+Browser.drive {
+    def humana = new Humana(browser, new UrlCache())
+    humana.login(username, password)
+    humana.initChallengeHome("Humana's 100 DD - 2015")
+    maps = teamNames.collect { humana.fetchTeamData(it) }
+    browser.quit()
+}
 
 TimeZone.setDefault(TimeZone.getTimeZone('UTC'))
-def dataMap = [
-        data: maps,
-        date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-]
+def dataMap = [data: maps, date: new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")]
 
 Humana.puts('Building JSON')
 def json = new JsonBuilder(dataMap).toPrettyString()
