@@ -11,8 +11,8 @@
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <style type="text/css">
         .comic {
-            font-face: "Comic Sans";
-
+            font-family: "Comic Sans MS", "Comic Sans", cursive;
+            font-size: 1.5em;
         }
         .center {
             text-align: center;

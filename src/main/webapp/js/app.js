@@ -140,9 +140,9 @@ $(function () {
     var detected = Modernizr.Detectizr.detect();
     if (detected.is('ie')) {
 
-        var newContent = '<p class="comic">This is what you get for using IE. Please use a real browser</p>' +
-            '<center><iframe width="640" height="480" ' +
-            'src="http://www.youtube.com/embed/A8yjNbcKkNY?autoplay=1">' +
+        var newContent = '<center><p class="comic">This is what you get for using IE. Please use a real browser</p>' +
+            '<p>&nbsp;</p><iframe width="640" height="480" ' +
+            'src="http://www.youtube.com/embed/A8yjNbcKkNY?autoplay=1&iv_load_policy=3">' +
             '</iframe></center>';
         $('.box').
             html(newContent).
