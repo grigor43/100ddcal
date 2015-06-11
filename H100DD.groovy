@@ -11,16 +11,21 @@ import groovyx.net.http.HTTPBuilder
 import org.openqa.selenium.WebDriverException
 
 class UrlCache {
+
+    public static final String FILE_NAME = "${System.getProperty('user.home')}/h100dd-urls.json"
+
     @Delegate
     Map<String, String> delegate = [:]
 
     void persist() {
-        new File('/tmp/h100dd-urls.json').text = new JsonBuilder(delegate).toPrettyString()
+        new File(FILE_NAME).text = new JsonBuilder(delegate).toPrettyString()
     }
 
     UrlCache() {
-        if (new File('/tmp/h100dd-urls.json').exists()) {
-            delegate = new JsonSlurper().parse(new File('/tmp/h100dd-urls.json')) as Map<String, String>
+        if (new File(FILE_NAME).exists()) {
+            delegate = new JsonSlurper().parse(new File(FILE_NAME)) as Map<String, String>
+        } else {
+            println "\n\nNo cache exists. This run will be particularly slow.\n\n"
         }
     }
 
