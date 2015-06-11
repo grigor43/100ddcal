@@ -138,7 +138,7 @@ function reloadDataImpl(offset) {
 }
 $(function () {
     var detected = Modernizr.Detectizr.detect();
-    if (detected.is('ie')) {
+    if (detected.is('ie') || detected.is('trident')) {
 
         var newContent = '<center><p class="comic">This is what you get for using IE. Please use a real browser</p>' +
             '<p>&nbsp;</p><iframe width="640" height="480" ' +
