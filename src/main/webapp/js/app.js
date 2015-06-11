@@ -7,10 +7,10 @@ String.prototype.toTitleCase = function (n) {
 };
 
 var pastels = [
-    '#B39eb5', '#dea5a4', '#b19cd9',
-    '#ff6961', '#ffb347', '#fdfd96',
-    '#aec6cf', '#f49ac2', '#cfcfc4',
-    "#03c03c", '#836953', '#779ecb'
+    '#ffb347' /*Gold*/, '#cfcfc4' /*Silver*/,
+    "#03c03c", '#836953', '#779ecb', '#B39eb5', '#dea5a4', '#b19cd9',
+    '#ff6961', '#fdfd96',
+    '#aec6cf', '#f49ac2'
 ];
 
 var teamColors = [];
@@ -137,8 +137,22 @@ function reloadDataImpl(offset) {
     });
 }
 $(function () {
-    reloadData();
-    setInterval(function () {
+    var detected = Modernizr.Detectizr.detect();
+    if (detected.is('ie')) {
+
+        var newContent = '<p class="comic">This is what you get for using IE. Please use a real browser</p>' +
+            '<center><iframe width="640" height="480" ' +
+            'src="http://www.youtube.com/embed/A8yjNbcKkNY?autoplay=1">' +
+            '</iframe></center>';
+        $('.box').
+            html(newContent).
+            show()
+        ;
+
+    } else {
         reloadData();
-    }, 1000 * 30);
+        setInterval(function () {
+            reloadData();
+        }, 1000 * 30);
+    }
 });

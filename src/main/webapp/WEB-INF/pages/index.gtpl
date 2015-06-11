@@ -103,6 +103,9 @@
         <script src="/js/underscore.js"></script>
         <script src="/js/d3.min.js"></script>
         <script src="/js/c3.min.js"></script>
+        <script src="/js/modernizr.min.js"></script>
+        <script src="/js/detectizr.js"></script>
+
         <script src="/js/app.js"></script>
     </body>
 </html>
