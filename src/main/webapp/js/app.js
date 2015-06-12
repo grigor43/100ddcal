@@ -140,10 +140,17 @@ $(function () {
     var detected = Modernizr.Detectizr.detect();
     if (detected.is('ie') || detected.is('trident')) {
 
-        var newContent = '<center><p class="comic">This is what you get for using IE. Please use a real browser</p>' +
-            '<p>&nbsp;</p><iframe width="640" height="480" ' +
-            'src="http://www.youtube.com/embed/A8yjNbcKkNY?autoplay=1&iv_load_policy=3">' +
-            '</iframe></center>';
+        var newContent = $('<center>').
+            append($('<p>').
+                attr('class', 'comic').
+                html('This is what you get for using IE. Please use a real browser')).
+            append($('<p>').
+                html('&nbsp;')).
+            append($('<iframe>').
+                attr('width', 640).
+                attr('height', 480).
+                attr('src','http://www.youtube.com/embed/A8yjNbcKkNY?autoplay=1&iv_load_policy=3'));
+
         $('.box').
             html(newContent).
             show()
