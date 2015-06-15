@@ -318,7 +318,7 @@ if (json.contains('null') || json.contains('""')) {
     throw new RuntimeException("Null value found")
 }
 Humana.puts "Submitting data"
-def h = new HTTPBuilder('http://h100cal.appspot.com/')
+def h = new HTTPBuilder('https://h100cal.appspot.com/')
 h.post(
         path: '/store',
         body: dataMap,
