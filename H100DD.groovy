@@ -156,6 +156,29 @@ class Humana {
             }
             dealWithPopup(browser)
             title(title)
+
+            puts "Loading my devices"
+            go 'https://www.humana.com/members/get-healthy/health-well-being/fitness-exercise/fitness-devices/manage-devices'
+            assert waitFor {
+                title.contains 'Manage fitness devices'
+            }
+            dealWithPopup(browser)
+            title(title)
+
+            def syncLink = $('a.link-tertiary').find { link ->
+                link.children().find {span -> span.text().toLowerCase() == 'Sync activity'.toLowerCase()}
+            }
+            if (syncLink) {
+                puts "Syncing my device"
+                syncLink.click()
+
+                assert waitFor {
+                    $('strong').find {it.text().contains('successfully synced')}
+                }
+                dealWithPopup(browser)
+            } else {
+                println "No devices found to sync"
+            }
         }
     }
 
