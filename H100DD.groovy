@@ -260,8 +260,15 @@ class Humana {
 def env = System.getenv()
 
 def teamNames = [
-        'Everything Is Groovy', 'Zippity', 'Sole Searchers',
-        "Campbell's 100 day dashers!", 'San Diego Ala Carte'
+        'Everything Is Groovy',
+        'Zippity',
+        'Sole Searchers',
+        "Campbell's 100 day dashers!",
+        'San Diego Ala Carte',
+        'Red Hot Chili Steppers',
+        "Borho's Bunch",
+        'SD Steppers - 100 DD',
+        'Wanna Step Outside'
 ]
 def username = env['HUM_USER']
 def password = env['HUM_PASS']
