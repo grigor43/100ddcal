@@ -10,14 +10,14 @@ var pastels = [
     '#ffb347' /*Gold*/,
     '#cfcfc4' /*Silver*/,
     "#03c03c" /*Green*/,
+    '#f49ac2' /*Pink2*/,
     '#779ecb' /*Blue*/,
     '#ff6961' /*Red*/,
-    '#fdfd96' /*Yellow*/,
     '#B39eb5' /*Purple*/,
     '#dea5a4' /*Pink*/,
     '#b19cd9' /*Violet*/,
     '#aec6cf' /*GrayBlue*/,
-    '#f49ac2' /*Pink2*/,
+    '#fdfd96' /*Yellow*/,
     '#836953' /*Brown*/
 ];
 
@@ -166,8 +166,6 @@ $(function () {
 
     } else {
         reloadData();
-        setInterval(function () {
-            reloadData();
-        }, 1000 * 30);
+        setInterval(reloadData, 1000 * 30);
     }
 });
