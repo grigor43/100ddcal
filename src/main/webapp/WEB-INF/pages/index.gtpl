@@ -87,7 +87,7 @@
         </div>
 
         <script id="member" type="text/html">
-        <div class="col-md-2 col-sm-3 col-xs-4">
+        <div class="col-md-2 col-sm-3 col-xs-6">
             <div style="" class="individual">
                 <div class="team">
                     <span style="background-color: {{color}};">{{teamName}}</span>
