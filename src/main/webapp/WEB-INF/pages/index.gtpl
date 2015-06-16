@@ -26,6 +26,10 @@
           font-family: 'Special Elite', 'Courier New', Courier, monospace;
           font-size: 12px;
         }
+
+        .mild {
+            font-weight: 200;
+        }
         </style>
     </head>
 
@@ -90,7 +94,7 @@
                 </div>
 
                 <div class="name">
-                    <h4>{{name}}</h4>
+                    <h4>{{firstName}} <span class="mild">{{lastName}}</span></h4>
                 </div>
 
                 <h2 class="pull-right">{{score}}</h2>

@@ -30,8 +30,6 @@ function plotData(data1, names) {
             type: 'bar',
             labels: true,
             color: function (color, d) {
-                console.log("Color: " + color);
-                console.log(d);
                 if (teamColors.length > d.index) {
                     return teamColors[d.index].color;
                 } else {
@@ -104,7 +102,10 @@ function processData(data, link) {
     $('#individuals').html('');
     _.each(sortedMembers, function (member) {
         member.color = pastels[(_.indexOf(names, member.teamName, false)) % 12];
-        member.name = member.name.toTitleCase();
+        var nameParts = member.name.toTitleCase().split(' ');
+        console.log(nameParts);
+        member.firstName = nameParts[0];
+        member.lastName = nameParts.slice(1, nameParts.length).join(' ');
         $('#individuals').append(ich.member(member));
     });
 
