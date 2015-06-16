@@ -7,10 +7,18 @@ String.prototype.toTitleCase = function (n) {
 };
 
 var pastels = [
-    '#ffb347' /*Gold*/, '#cfcfc4' /*Silver*/,
-    "#03c03c", '#836953', '#779ecb', '#B39eb5', '#dea5a4', '#b19cd9',
-    '#ff6961', '#fdfd96',
-    '#aec6cf', '#f49ac2'
+    '#ffb347' /*Gold*/,
+    '#cfcfc4' /*Silver*/,
+    "#03c03c" /*Green*/,
+    '#779ecb' /*Blue*/,
+    '#ff6961' /*Red*/,
+    '#fdfd96' /*Yellow*/,
+    '#B39eb5' /*Purple*/,
+    '#dea5a4' /*Pink*/,
+    '#b19cd9' /*Violet*/,
+    '#aec6cf' /*GrayBlue*/,
+    '#f49ac2' /*Pink2*/,
+    '#836953' /*Brown*/
 ];
 
 var teamColors = [];

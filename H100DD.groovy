@@ -200,6 +200,12 @@ class Humana {
         }
     }
 
+    private String report(Browser browser, String name) {
+        browser.report(name)
+        "Reported to $name"
+    }
+
+
     private void loadTeam(String team) {
         Browser.drive(theBrowser) {
             if (urlCache["team.${team}"]) {
@@ -212,7 +218,7 @@ class Humana {
                 puts "Waiting for page to load"
                 assert waitFor {
                     $('.team-rank .block').text()
-                }
+                } : report(browser, "${timestamp}_${teamName}")
             } else {
                 puts "Loading Challenge Page"
                 go urlCache['challengeUrl']
@@ -234,7 +240,7 @@ class Humana {
                 puts "Waiting for page to load"
                 assert waitFor {
                     $('.team-rank .block').text()
-                }
+                } : report(browser, "${timestamp}_${teamName}")
 
                 urlCache["team.${team}"] = driver.currentUrl
                 urlCache.persist()
