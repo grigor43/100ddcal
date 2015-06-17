@@ -1,8 +1,7 @@
+<?xml version="1.0"?>
 <sitemesh>
   <mapping path='/*' decorator='/WEB-INF/layouts/main.gtpl' />
+  <mapping path='/e/*' exclude='true' />
   <mapping path='/_ah/*' exclude='true' />
-  <mapping path='/data.groovy' exclude='true' />
-  <mapping path='/data' exclude='true' />
-  <mapping path='/api/data' exclude='true' />
   <mapping path='/api/*' exclude='true' />
 </sitemesh>
