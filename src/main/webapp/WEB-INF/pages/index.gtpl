@@ -6,52 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 
     <style media="screen">
-        body {
-            background-color: #ffffff;
-            background-image: url(/images/black-linen.png);
-        }
-
-        .box {
-            background: #FFF;
-            margin: 40px -20px 40px -20px;
-            padding: 20px;
-        }
-
-        /*==================================================
-         * Effect 7
-         * ===============================================*/
-        .effect7 {
-            position: relative;
-            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-        }
-
-        .effect7:before, .effect7:after {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            top: 0;
-            bottom: 0;
-            left: 10px;
-            right: 10px;
-            -moz-border-radius: 100px / 10px;
-            border-radius: 100px / 10px;
-        }
-
-        .effect7:after {
-            right: 10px;
-            left: auto;
-            -webkit-transform: skew(8deg) rotate(3deg);
-            -moz-transform: skew(8deg) rotate(3deg);
-            -ms-transform: skew(8deg) rotate(3deg);
-            -o-transform: skew(8deg) rotate(3deg);
-            transform: skew(8deg) rotate(3deg);
-        }
-
         .individual {
             border: 1px solid #DDD;
             height: 162px;
@@ -87,22 +41,15 @@
 </head>
 
 <body>
-<a href="https://github.com/rahulsom/100ddcal">
-    <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1000;"
-         src="/images/fork-me.png"
-         alt="Fork me on GitHub"
-         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
-         height="149" width="149"
-            >
-</a>
-<div class="container" >
-    <div class="box effect7" style="display: none;">
-
+<% if (request.getParameter("l")?.toString() != '0') { %>
 <h3>Teams</h3>
+<% } %>
 
 <div id="chart"></div>
 
+<% if (request.getParameter("l")?.toString() != '0') { %>
 <h3>Individuals</h3>
+<% } %>
 
 <div class="row">
     <div id="individuals">
@@ -113,6 +60,7 @@
 <br>
 <br>
 
+<% if (request.getParameter("l")?.toString() != '0') { %>
 <div id="updateTime" style="display: none">
     Last Updated <a href="" id="updatelink"><span id="lu"></span></a>
             <span class="pull-right">
@@ -151,6 +99,7 @@
         </div>
     </div>
 </div>
+<% } %>
 
 <script id="member" type="text/html">
     <div class="col-md-2 col-sm-3 col-xs-6">
@@ -177,8 +126,6 @@
 <script src="/js/thirdparty/detectizr.js"></script>
 
 <script src="/js/index.js"></script>
-    </div>
-</div>
 
 </body>
 </html>
