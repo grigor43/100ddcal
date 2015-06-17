@@ -167,13 +167,13 @@
     </div>
 </script>
 
-<script src="/js/moment.js"></script>
-<script src="/js/ICanHaz.min.js"></script>
-<script src="/js/underscore.js"></script>
-<script src="/js/d3.min.js"></script>
-<script src="/js/c3.min.js"></script>
-<script src="/js/modernizr.min.js"></script>
-<script src="/js/detectizr.js"></script>
+<script src="/js/thirdparty/moment.js"></script>
+<script src="/js/thirdparty/ICanHaz.min.js"></script>
+<script src="/js/thirdparty/underscore.js"></script>
+<script src="/js/thirdparty/d3.min.js"></script>
+<script src="/js/thirdparty/c3.min.js"></script>
+<script src="/js/thirdparty/modernizr.min.js"></script>
+<script src="/js/thirdparty/detectizr.js"></script>
 
 <script src="/js/app.js"></script>
     </div>

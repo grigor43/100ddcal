@@ -7,8 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/css/c3.css"/>
-    <script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/thirdparty/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/js/thirdparty/bootstrap.min.js"></script>
     <style type="text/css">
         .center {
             text-align: center;
@@ -87,18 +87,18 @@
         </div>
     </script>
 
-    <script src="/js/moment.js"></script>
-    <script src="/js/ICanHaz.min.js"></script>
-    <script src="/js/underscore.js"></script>
-    <script src="/js/d3.min.js"></script>
-    <script src="/js/c3.min.js"></script>
-    <script src="/js/modernizr.min.js"></script>
-    <script src="/js/detectizr.js"></script>
+    <script src="/js/thirdparty/moment.js"></script>
+    <script src="/js/thirdparty/ICanHaz.min.js"></script>
+    <script src="/js/thirdparty/underscore.js"></script>
+    <script src="/js/thirdparty/d3.min.js"></script>
+    <script src="/js/thirdparty/c3.min.js"></script>
+    <script src="/js/thirdparty/modernizr.min.js"></script>
+    <script src="/js/thirdparty/detectizr.js"></script>
 
     <script src="/js/app.js"></script>
 </div>
-<script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="/js/thirdparty/bootstrap.min.js"></script>
 
 </body>
 </html>
