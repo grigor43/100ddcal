@@ -29,7 +29,7 @@
         }
 
         .individual .name {
-            height: 3em;
+            height: 54px;
         }
 
         .individual .team {
@@ -95,7 +95,7 @@
     <script src="/js/thirdparty/modernizr.min.js"></script>
     <script src="/js/thirdparty/detectizr.js"></script>
 
-    <script src="/js/app.js"></script>
+    <script src="/js/index.js"></script>
 </div>
 <script type="text/javascript" src="/js/thirdparty/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="/js/thirdparty/bootstrap.min.js"></script>

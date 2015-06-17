@@ -82,6 +82,7 @@
         .mild {
             font-weight: 200;
         }
+
     </style>
 </head>
 
@@ -175,7 +176,7 @@
 <script src="/js/thirdparty/modernizr.min.js"></script>
 <script src="/js/thirdparty/detectizr.js"></script>
 
-<script src="/js/app.js"></script>
+<script src="/js/index.js"></script>
     </div>
 </div>
 

@@ -11,4 +11,4 @@ Hacking
 
 `H100DD.groovy` is where team names are set. If you want to add your team to the dashboard, do so here.
 
-`app.js` is where most application logic is. If you want to make the app do more, that might be the place.
+`index.js` is where most application logic is. If you want to make the app do more, that might be the place.
