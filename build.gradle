@@ -46,7 +46,6 @@ dependencies {
 
     appengineSdk "com.google.appengine:appengine-java-sdk:$gaeVersion"
 
-
     /**
      * To add binary plugin just declare it as a dependency. For example,
      * uncomment following to add GPars support to your Gaelyk project.
@@ -65,13 +64,16 @@ dependencies {
 
 def env = System.getenv()
 appengine {
-	appcfg {
-		// email = env['GAE_USER']
-    oauth2 = true
-		// password = env['GAE_PASS']
 
-		app {
-			id = 'h100cal'
-		}
-	}
+    httpPort = 7000
+
+    appcfg {
+        // email = env['GAE_USER']
+        oauth2 = true
+        // password = env['GAE_PASS']
+
+        app {
+            id = 'h100cal'
+        }
+    }
 }
