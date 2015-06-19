@@ -1,4 +1,6 @@
 get "/", forward: "/WEB-INF/pages/index.gtpl"
+get "/compare", forward: "/WEB-INF/pages/compare.gtpl"
 get "/api/data", forward: "/data.groovy"
+get "/api/persons", forward: "/persons.groovy"
 post "/store", forward: "/store.groovy"
 get "/favicon.ico", redirect: "/images/gaelyk-small-favicon.png"
