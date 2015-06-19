@@ -68,12 +68,12 @@ appengine {
     httpPort = 7000
 
     appcfg {
-        // email = env['GAE_USER']
+
         oauth2 = true
-        // password = env['GAE_PASS']
 
         app {
             id = 'h100cal'
         }
+
     }
 }
