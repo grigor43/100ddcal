@@ -57,8 +57,6 @@
     </div>
 </div>
 <br>
-<br>
-<br>
 
 <% if (request.getParameter("l")?.toString() != '0') { %>
 <div id="updateTime" style="display: none">
@@ -125,6 +123,7 @@
 <script src="/js/thirdparty/modernizr.min.js"></script>
 <script src="/js/thirdparty/detectizr.js"></script>
 
+<script src="/js/util.js"></script>
 <script src="/js/index.js"></script>
 
 </body>
