@@ -171,10 +171,10 @@ class Humana {
             if (syncLink) {
                 puts "Syncing my device"
                 syncLink.click()
-
+                dealWithPopup(browser)
                 assert waitFor {
                     $('strong').find {it.text().contains('successfully synced')}
-                }
+                } : report(browser, "AfterSync")
                 dealWithPopup(browser)
             } else {
                 println "No devices found to sync"
