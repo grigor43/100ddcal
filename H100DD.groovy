@@ -157,11 +157,11 @@ class Humana {
             dealWithPopup(browser)
             title(title)
 
-            puts "Loading my devices"
+/*            puts "Loading my devices"
             go 'https://www.humana.com/members/get-healthy/health-well-being/fitness-exercise/fitness-devices/manage-devices'
             assert waitFor {
                 title.contains 'Manage fitness devices'
-            }
+            } : report(browser, 'LoadedDevices')
             dealWithPopup(browser)
             title(title)
 
@@ -178,7 +178,7 @@ class Humana {
                 dealWithPopup(browser)
             } else {
                 println "No devices found to sync"
-            }
+            }*/
         }
     }
 
