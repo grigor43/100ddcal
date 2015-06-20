@@ -1,15 +1,12 @@
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
-import h100.CacheHelper
 import h100.Report
 
 log.info "Params: ${params}"
 
 def offset = params.offset?.toInteger() ?: 0
 
-List<Report> reports = CacheHelper.get('data') {
-    Report.findAll().sort { Report r -> -r.date.time }
-}
+List<Report> reports = DataHelper.reports
 
 log.info "Available: ${reports.size()}"
 
