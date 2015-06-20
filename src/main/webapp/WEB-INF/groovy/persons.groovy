@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import groovy.time.TimeCategory
 import h100.DataHelper
 import h100.Report
 
@@ -35,11 +36,11 @@ def rows = reports.
             List<String> scores = persons.collect { p ->
                 personalScores.find { it.name == p }?.score ?: '0'
             }
-            int divisor = use(groovy.time.TimeCategory) { (r.date - startDay).days } ?: 1
+            int divisor = use(TimeCategory) { (r.date - startDay).days } ?: 1
             def s2 = scores.collect { (it.replace(',', '').replace('-', '0').toInteger()) / divisor as int }
             s2.add(0, k)
             return s2
-        }*.value
+        }
 
 log.info "Available: ${rows.size()}"
 
