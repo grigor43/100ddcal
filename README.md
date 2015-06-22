@@ -11,4 +11,14 @@ Hacking
 
 `H100DD.groovy` is where team names are set. If you want to add your team to the dashboard, do so here.
 
-`index.js` is where most application logic is. If you want to make the app do more, that might be the place.
+This app is built using [Gaelyk](http://gaelyk.appspot.com/). To launch a local instance, run
+
+```
+./gradlew appengineRun
+```
+
+To load data from the production instance, run 
+
+```
+./bootstrap.sh
+```

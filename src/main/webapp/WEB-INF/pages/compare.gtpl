@@ -128,9 +128,7 @@
                 .data(color.domain())
                 .enter().append("g")
                 .attr("class", "legend")
-                .attr("transform", function (d, i) {
-                    return "translate(0," + i * 20 + ")";
-                });
+                .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
 
         // draw legend colored rectangles
         legend.append("rect")
@@ -145,9 +143,7 @@
                 .attr("y", 9)
                 .attr("dy", ".35em")
                 .style("text-anchor", "end")
-                .text(function (d) {
-                    return d;
-                })
+                .text(function (d) { return d; })
 
     });</script>
 </body>
