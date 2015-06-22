@@ -297,7 +297,10 @@ def teamNames = [
         'Red Hot Chili Steppers',
         "Borho's Bunch",
         'SD Steppers - 100 DD',
-        'Wanna Step Outside'
+        'Wanna Step Outside',
+        'Game of Steps',
+        'Lyons Family Dash',
+        'SD_Dashers',
 ]
 def username = env['HUM_USER']
 def password = env['HUM_PASS']
