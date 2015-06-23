@@ -65,7 +65,7 @@
     var line = d3.svg.line()
             .interpolate("monotone")
             .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.temperature); });
+            .y(function(d) { return y(d.steps); });
 
     var svg = d3.select("#chart").append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -80,29 +80,36 @@
         var names = d3.keys(data[0]).filter(function(key) { return key !== "date"; });
         color.domain(names);
 
-        data.forEach(function(d) {
-            d.date = parseDate(d.date);
-        });
+        data.
+                forEach(function (d) {
+                    d.date = parseDate(d.date);
+                });
 
-        var cities = names.map(function(name) {
-            return {
-                name: name,
-                values: data.map(function(d) {
-                    return {date: d.date, temperature: +d[name]};
-                }),
-                total: data.map(function(d) {
-                    return parseInt(d[name]);
-                }).reduce(function(pre, curr, i, a) {
-                    return pre + curr;
-                })
-            };
-        }).sort(function(a, b){ return b.total - a.total });
+        var people = names.
+                map(function (name) {
+                    return {
+                        name: name,
+                        values: data.map(function (d) {
+                            return {date: d.date, steps: +d[name]};
+                        }),
+                        sortValue: data.
+                                map(function (d) {
+                                    return parseInt(d[name]);
+                                }).
+                                reduce(function (pre, curr, i, a) {
+                                    return pre + curr;
+                                })
+                    };
+                }).
+                sort(function (a, b) {
+                    return b.sortValue - a.sortValue
+                });
 
         x.domain(d3.extent(data, function(d) { return d.date; }));
 
         y.domain([
-            d3.min(cities, function(c) { return 0 }),
-            d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+            d3.min(people, function(c) { return 0 }),
+            d3.max(people, function(c) { return d3.max(c.values, function(v) { return v.steps; }); })
         ]);
 
         svg.append("g")
@@ -120,18 +127,18 @@
                 .style("text-anchor", "end")
                 .text("Steps");
 
-        var city = svg.selectAll(".city")
-                .data(cities)
+        var person = svg.selectAll(".person")
+                .data(people)
                 .enter().append("g")
-                .attr("class", "city");
+                .attr("class", "person");
 
-        city.append("path")
+        person.append("path")
                 .attr("class", "line")
                 .attr("d", function(d) { return line(d.values); })
                 .style("stroke", function(d) { return color(d.name); });
 
         var legend = svg.selectAll(".legend")
-                .data(cities.map(function(d){return d.name;})) //sorted names as data
+                .data(people.map(function(d){return d.name;})) //sorted names as data
                 .enter().append("g")
                 .attr("class", "legend")
                 .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
@@ -149,7 +156,7 @@
                 .attr("y", 9)
                 .attr("dy", ".35em")
                 .style("text-anchor", "end")
-                .text(function (d) { return d; })
+                .text(function (d) { return d.toTitleCase(); })
 
     });</script>
 </body>
