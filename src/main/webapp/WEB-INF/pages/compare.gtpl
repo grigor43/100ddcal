@@ -81,29 +81,20 @@
         color.domain(names);
 
         data.
-                forEach(function (d) {
-                    d.date = parseDate(d.date);
-                });
+                forEach(function (d) { d.date = parseDate(d.date); });
 
         var people = names.
                 map(function (name) {
                     return {
                         name: name,
-                        values: data.map(function (d) {
-                            return {date: d.date, steps: +d[name]};
-                        }),
+                        values: data.
+                                map(function (d) { return {date: d.date, steps: +d[name]}; }),
                         sortValue: data.
-                                map(function (d) {
-                                    return parseInt(d[name]);
-                                }).
-                                reduce(function (pre, curr, i, a) {
-                                    return pre + curr;
-                                })
+                                map(function (d) { return parseInt(d[name]); }).
+                                reduce(function (pre, curr, i, a) { return curr; })
                     };
                 }).
-                sort(function (a, b) {
-                    return b.sortValue - a.sortValue
-                });
+                sort(function (a, b) { return b.sortValue - a.sortValue });
 
         x.domain(d3.extent(data, function(d) { return d.date; }));
 
