@@ -77,20 +77,26 @@
     d3.tsv("/api/persons?q=${request.getParameter('q')}", function(error, data) {
         if (error) throw error;
 
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+        var names = d3.keys(data[0]).filter(function(key) { return key !== "date"; });
+        color.domain(names);
 
         data.forEach(function(d) {
             d.date = parseDate(d.date);
         });
 
-        var cities = color.domain().map(function(name) {
+        var cities = names.map(function(name) {
             return {
                 name: name,
                 values: data.map(function(d) {
                     return {date: d.date, temperature: +d[name]};
+                }),
+                total: data.map(function(d) {
+                    return parseInt(d[name]);
+                }).reduce(function(pre, curr, i, a) {
+                    return pre + curr;
                 })
             };
-        });
+        }).sort(function(a, b){ return b.total - a.total });
 
         x.domain(d3.extent(data, function(d) { return d.date; }));
 
@@ -125,7 +131,7 @@
                 .style("stroke", function(d) { return color(d.name); });
 
         var legend = svg.selectAll(".legend")
-                .data(color.domain())
+                .data(cities.map(function(d){return d.name;})) //sorted names as data
                 .enter().append("g")
                 .attr("class", "legend")
                 .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
