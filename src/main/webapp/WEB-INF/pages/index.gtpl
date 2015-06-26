@@ -58,14 +58,16 @@
 </div>
 <br>
 
-<% if (request.getParameter("l")?.toString() != '0') { %>
 <div id="updateTime" style="display: none">
     Last Updated <a href="" id="updatelink"><span id="lu"></span></a>
-            <span class="pull-right">
-                <a href="#" data-toggle="modal" data-target="#myModal">Help update the data</a>
-            </span>
+    <% if (request.getParameter("l")?.toString() != '0') { %>
+    <span class="pull-right">
+        <a href="#" data-toggle="modal" data-target="#myModal">Help update the data</a>
+    </span>
+    <% } %>
 </div>
 
+<% if (request.getParameter("l")?.toString() != '0') { %>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
